@@ -16,10 +16,10 @@ void max_mat_sum(int k, int i, int sum, vector<int>& indices) {
         }
     } else if (i < M.size()){
         indices.push_back(i+1);
-        int row_sum = 0;
-        for(int j = 0; j < indices.size(); j++) row_sum += M[i][indices[j]-1];
-        row_sum *= 2;
-        max_mat_sum(k - 1, i + 1, sum + row_sum, indices);
+        int new_sum = 0;
+        for(int j = 0; j < indices.size(); j++) new_sum += M[i][indices[j]-1];
+        new_sum *= 2;
+        max_mat_sum(k - 1, i + 1, sum + new_sum, indices);
         indices.pop_back();
         max_mat_sum(k, i + 1, sum, indices);
     }
