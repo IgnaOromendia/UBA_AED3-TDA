@@ -2,3 +2,4 @@
 Ej_*
 !*.cpp
 .vscode
+temp*
