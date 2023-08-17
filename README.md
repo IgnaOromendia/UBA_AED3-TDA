@@ -15,3 +15,4 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 5](practicas/practica%201/Ej_05.cpp)
         - [Ejercicio 6](practicas/practica%201/Ej_06.cpp)
         - [Ejercicio 7](practicas/practica%201/Ej_07.cpp)
+        - [Ejercicio 8](practicas/practica%201/Ej_08.cpp)
