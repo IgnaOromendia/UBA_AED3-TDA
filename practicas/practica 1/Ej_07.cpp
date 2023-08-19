@@ -28,15 +28,22 @@ int mgn_bu(){
     int n = precios.size();
     vector<vector<int> > M(n+1, vector<int>(n+1, -1));
 
-    M[0][0] = 0;
+    for(int i = 0; i <= n; i++) M[0][i] = 0;
 
     for(int j = 1; j <= n; j++) {
-        for(int c = j; c > 0; c--) {
+        for(int c = 0; c <= j; c++) {
             int no_operar  = M[j-1][c];
-            int comprar    = M[j-1][c - 1] - precios[j - 1];
-            int vender     = M[j-1][c + 1] + precios[j - 1];
+            int comprar    = c > 0 ? M[j-1][c - 1] - precios[j - 1] : -1;
+            int vender     = (0 < c < n) ? M[j-1][c + 1] + precios[j - 1] : -1;
             M[j][c]        = max(vender, max(comprar, no_operar));
         }
+    }
+
+    for(int i = 0; i <= n; i++) {
+        for(int j = 0; j <= n; j++) {
+            cout << M[i][j] << " ";
+        }
+        cout << endl;
     }
 
     return M[n][n];
