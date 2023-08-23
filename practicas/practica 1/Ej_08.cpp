@@ -32,15 +32,25 @@ int min_costo(int i, int j) {
 int min_costo_bu(int l) {
     vector<vector<int> > M(l+1, vector<int>(l+1, -1));
 
-    // Hacer un corte sin longitud
-    M[0][0] = 0;
+    for (int len = 1; len <= l; len++) {
+        for(int i = 0; i <= l - len; i++) {
+            int j = i + len;
 
-    for (int i = 0; i <= l; i++) {
-        for(int j = i; j <= l; j++) {
-            
+            if(j - i == 1) M[i][j] = 0; // Hacer un corte sin longitud
+
+            bool hay_corte = false;
+            for(int q = i; q < j; q++) {
+                if (cortes[q]) {
+                    M[i][j] = min(M[i][j], M[i][q] + M[q][j]);
+                    hay_corte = true;
+                }
+            }
+
+            if (hay_corte) M[i][j] += j - i;
         }
     }
 
+    return M[l][l];
 }
 
 
@@ -59,9 +69,9 @@ int main() {
 
     cout << "Coste de los cortes (TD): " << coste << endl;
 
-    /*coste = corte_bu(l);
+    coste = min_costo_bu(l);
 
-    cout << "Coste de los cortes (BU): " << coste << endl;*/
+    cout << "Coste de los cortes (BU): " << coste << endl;
 
 
 

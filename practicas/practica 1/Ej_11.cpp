@@ -18,6 +18,21 @@ bool operaciones(int i, int x) {
     return memo[i][x];
 }
 
+bool operaciones_bu() {
+    int n = numeros.size();
+    vector<vector<int> > M(n+1, vector<int>(w+1, -1));
+
+    M[0][0] = 0;
+
+    for(int i = 0; i <= n; i++) {
+        for(int j = 0; j <= w; j++) {
+            //M[i][j] = 
+        }
+    }
+
+    return M[n][w];
+}
+
 int main() {
     int n; cin >> n >> w;
 
