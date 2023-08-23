@@ -14,7 +14,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Programación Dinámica
         - [Ejercicio 5](practicas/practica%201/Ej_05.cpp)
         - [Ejercicio 6](practicas/practica%201/Ej_06.cpp)
-        - [Ejercicio 7 falta bottom up](practicas/practica%201/Ej_07.cpp)
+        - [Ejercicio 7](practicas/practica%201/Ej_07.cpp)
         - [Ejercicio 8 falta bottom up](practicas/practica%201/Ej_08.cpp)
         - [Ejercicio 9 falta bottom up](practicas/practica%201/Ej_09.cpp)
         - [Ejercicio 10 falta bottom up](practicas/practica%201/Ej_10.cpp)

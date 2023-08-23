@@ -26,27 +26,32 @@ int mgn(int j, int c) {
 // Bottom Up
 int mgn_bu(){
     int n = precios.size();
-    vector<vector<int> > M(n+1, vector<int>(n+1, -1));
+    vector<vector<int> > M(n+1, vector<int>(n+1, -INF));
 
-    for(int i = 0; i <= n; i++) M[0][i] = 0;
+    for(int i = 0; i <= n; i++){
+        M[0][i] = 0;
+        M[i][0] = 0;
+    }
 
     for(int j = 1; j <= n; j++) {
-        for(int c = 0; c <= j; c++) {
+        for(int c = 1; c <= j; c++) {
+            // Mantengo las misma cantidad de cajas
             int no_operar  = M[j-1][c];
-            int comprar    = c > 0 ? M[j-1][c - 1] - precios[j - 1] : -1;
-            int vender     = (0 < c < n) ? M[j-1][c + 1] + precios[j - 1] : -1;
-            M[j][c]        = max(vender, max(comprar, no_operar));
+
+            // Compre hoy (j) entonces el día anterior tenia una caja menos
+            int comprar = M[j-1][c - 1] - precios[j - 1];
+
+            // Vendi hoy (j) entonces el día anterior tenia una caja más
+            int vender = c < n ? M[j-1][c + 1] + precios[j - 1] : -INF;
+
+            // Busco la máxima ganancia
+            M[j][c] = max(vender, max(comprar, no_operar));
         }
     }
 
-    for(int i = 0; i <= n; i++) {
-        for(int j = 0; j <= n; j++) {
-            cout << M[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    return M[n][n];
+    int max = -1;
+    for (int i = 0; i <= n; i++) if (max < M[n][i]) max = M[n][i];
+    return max;
 }
 
 int main() {
