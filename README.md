@@ -19,4 +19,4 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 9 falta bottom up](practicas/practica%201/Ej_09.cpp)
         - [Ejercicio 10 falta bottom up](practicas/practica%201/Ej_10.cpp)
         - [Ejercicio 11 falta bottom up](practicas/practica%201/Ej_11.cpp)
-        - [Ejercicio 12 falta segundo escenario](practicas/practica%201/Ej_12.cpp)
+        - [Ejercicio 12](practicas/practica%201/Ej_12.cpp)
