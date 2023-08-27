@@ -1,5 +1,6 @@
 .DS_Store
 Ej_*
-!*.cpp
+Ejercicio*
 .vscode
+!*.cpp
 temp*
