@@ -5,29 +5,52 @@ using namespace std;
 
 // Constantes
 
+const char POSITIVO = '+';
+const char NEGATIVO = '-';
+const char INDETERMINADO = '?'; 
+
 // Variables Globales
 int n, saldo_final;
 vector<int> cuentas;
 vector<char> resultado;
-vector<char> signos;
 vector<vector<int> > memo;
 
-void detectar_cuentas(int i, int s, vector<char>& signos) {
+bool detectar_cuentas(int i, int s, vector<char>& signos) {
     // Caso base
-    if (i == n and s != saldo_final) return;
-
-    if (i == n and s == saldo_final) {
-        for(int i = 0; i < n; i++) resultado[i] = signos[i];
-        return;
+    if (i == n ) {
+        if (s == saldo_final) resultado = signos;
+        return s == saldo_final;
     }
 
-    signos[i] = '+';
-    detectar_cuentas(i + 1, s + cuentas[i], signos);
+    if (memo[i][s] == -1) {
+        signos[i] = POSITIVO;
+        bool sumando = detectar_cuentas(i + 1, s + cuentas[i], signos);
 
-    signos[i] = '-';
-    detectar_cuentas(i + 1, s - cuentas[i], signos);
+        signos[i] = NEGATIVO;
+        bool restando = detectar_cuentas(i + 1, s - cuentas[i], signos);
+    
+        signos[i] = ' ';
 
-    signos[i] = ' ';
+        memo[i][s] = sumando or restando;
+    }
+
+    return memo[i][s];
+}
+
+void detectar_dobles() {
+    for(int i = 0; i < n; i++) {
+        int contador = 0;
+        for(int j = 0; j < n; j++){
+            if (i != j and cuentas[i] == cuentas[j]) {
+                contador++;
+                if (contador == 1) {
+                    contador = 0;
+                    resultado[i] = INDETERMINADO;
+                    resultado[j] = INDETERMINADO;
+                }
+            }
+        }
+    }       
 }
 
 int main() {
@@ -35,19 +58,22 @@ int main() {
     while(c--) {
         cin >> n >> saldo_final;
 
-        //memo = vector<vector<int> >(n, vector<int>(saldo_final, -1));
-        resultado = vector<char>(n);
-        signos = vector<char>(n);
+        memo = vector<vector<int> >(n, vector<int>(saldo_final, -1));
         cuentas = vector<int>(n);
+        resultado = vector<char>(n);
 
         int i = 0;
         while(i < n) {
             int e; cin >> e;
-            cuentas.push_back(e);
+            cuentas[i] = e;
             i++;
         }
 
-        detectar_cuentas(0, 0, signos);
+        vector<char> v(n);
+
+        detectar_cuentas(0, 0, v);
+
+        detectar_dobles();
 
         for(int i = 0; i < n; i++) cout << resultado[i];
         cout << endl;
