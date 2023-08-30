@@ -28,8 +28,7 @@ const string IMPOSIBLE = "IMPOSIBLE";
 
 int n, m;
 vector<vector<char> > tablero;
-vector<vector<bool> > min_track;
-vector<vector<bool> > max_track;
+vector<vector<bool> > track;
 
 bool en_rango(int i, int j) {
     return 0 <= i and i < n and 0 <= j and j < m;
@@ -51,28 +50,26 @@ coord seguir_derecho(int i, int j, int DIR) {
  * @return el camino minimo hasta ese punto
 */
 long_caminos encontrar_camino(int i, int j, int DIR) {
-    // Caso base llego a la esquina inferior derecha
-    if(i == n - 1 and j == m - 1) return make_pair(0, 0);
-
     // Si se va de rango es invalido
     if(not en_rango(i,j)) return make_pair(INF, -INF); 
 
     // Si ya pase por esta posicion es un camino invalido
-    if(min_track[i][j]) return make_pair(INF, -INF);
+    if(track[i][j]) return make_pair(INF, -INF);
 
     // Si estoy parado en un # es invalido
     if(tablero[i][j] == EMPTY) return make_pair(INF, -INF);
 
+    // Caso base llego a la esquina inferior derecha
+    if(i == n - 1 and j == m - 1) return make_pair(0, 0);
+
     // Marcamos la posicon por done se pasa
-    min_track[i][j] = true;
-    max_track[i][j] = true;
+    track[i][j] = true;
 
     // Si es la posicion inicial puedo elegir
     if (DIR == INICIO) {
         long_caminos bajar = encontrar_camino(i + 1, j, ARRIBA);
         long_caminos derecha = encontrar_camino(i, j + 1, IZQUIERDA);
-        min_track[i][j] = false;
-        max_track[i][j] = false;
+        track[i][j] = false;
         return make_pair(1 + min(bajar.first, derecha.first), 1 + max(bajar.second, derecha.second));;
     }
 
@@ -80,8 +77,7 @@ long_caminos encontrar_camino(int i, int j, int DIR) {
     if(tablero[i][j] == I) {
         coord c = seguir_derecho(i, j, DIR);
         long_caminos camino = encontrar_camino(c.first, c.second, DIR);
-        min_track[i][j] = false;
-        max_track[i][j] = false;
+        track[i][j] = false;
         return make_pair(1 + camino.first, 1 + camino.second);
     }
     
@@ -90,9 +86,8 @@ long_caminos encontrar_camino(int i, int j, int DIR) {
         // Si vengo de arriba o abajo puedo ir para la izquierda o derecha
         if (DIR == ARRIBA or DIR == ABAJO) {
             long_caminos der = encontrar_camino(i, j + 1, IZQUIERDA);
-            long_caminos izq = encontrar_camino(i, j + 1, IZQUIERDA);
-            min_track[i][j] = false;
-            max_track[i][j] = false;
+            long_caminos izq = encontrar_camino(i, j - 1, DERECHA);
+            track[i][j] = false;
             return make_pair(1 + min(der.first, izq.first), 1 + max(der.second, izq.second));
         }  
         
@@ -100,8 +95,7 @@ long_caminos encontrar_camino(int i, int j, int DIR) {
             // Si vengo de la derecha o izquierda puedo ir para arriba o para abajo
             long_caminos bajar = encontrar_camino(i + 1, j, ARRIBA);
             long_caminos subir = encontrar_camino(i - 1, j, ABAJO);
-            min_track[i][j] = false;
-            max_track[i][j] = false;
+            track[i][j] = false;
             return make_pair(1 + min(bajar.first, subir.first), 1 + max(bajar.second, subir.second));
         }
     }
@@ -129,31 +123,26 @@ long_caminos encontrar_camino(int i, int j, int DIR) {
         if (min > pasos.first) min = pasos.first;
         if (max < pasos.second) max = pasos.second;
 
-        min_track[i][j] = false;
-        max_track[i][j] = false;
+        track[i][j] = false;
 
         return make_pair(1 + min, 1 + max);
     }
 
-    min_track[i][j] = false;
-    max_track[i][j] = false;
+    track[i][j] = false;
 
     return make_pair(-1, -1);
 }
 
 int main() {
-    int c = 1; //cin >> c;
+    int c;cin >> c;
 
     while(c--) {
-        // cin >> n >> m;
-        n = 4;
-        m = 4;
+        cin >> n >> m;
 
         tablero = vector<vector<char> >(n, vector<char>(m));
-        min_track = vector<vector<bool> >(n, vector<bool>(m, false));
-        max_track = vector<vector<bool> >(n, vector<bool>(m, false));
+        track = vector<vector<bool> >(n, vector<bool>(m, false));
 
-        int i = n;
+        int i = 0;
         int j = 0;
 
         while(i < n) {
@@ -166,45 +155,9 @@ int main() {
             j = 0;
         }
 
-        tablero[0][0] = L;
-        tablero[0][1] = I;
-        tablero[0][2] = PLUS;
-        tablero[0][3] = L;
-
-        tablero[1][0] = PLUS;
-        tablero[1][1] = PLUS;
-        tablero[1][2] = I;
-        tablero[1][3] = L;
-
-        tablero[2][0] = I;
-        tablero[2][1] = EMPTY;
-        tablero[2][2] = PLUS;
-        tablero[2][3] = EMPTY;
-
-        tablero[3][0] = L;
-        tablero[3][1] = I;
-        tablero[3][2] = PLUS;
-        tablero[3][3] = PLUS;
-
         long_caminos camino = encontrar_camino(0, 0, INICIO);
 
         if (camino.first < INF) cout << POSIBLE << " " << camino.first << " " << camino.second << endl;
         else cout << IMPOSIBLE << endl;
     }
 }
-/*
-3
-3 3
-ILI
-#IL
-+L+
-2 2
-+#
-#L
-4 4
-LI+L
-++IL
-I#+#
-LI++
-
-*/
