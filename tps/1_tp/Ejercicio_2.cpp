@@ -5,36 +5,52 @@
 using namespace std;
 using minuto = int;
 using costo = int;
-using parcial = pair<minuto, costo>;
 
 const int INF = 1e9;
 
 int n;
-vector<parcial> parciales;
 vector<minuto> minutos;
 vector<costo> descontentos;
+vector<bool> parciales_corregidos;
 
-int minimo_descontento(int i, int m, int c) {
-    if (i == n and c != n) return INF;
-    if (i == n) return 0;
-    int corregir = parciales[i].second * (m + parciales[i].first) + minimo_descontento(i + 1, m + parciales[i].first, c + 1);
-    int siguiente = minimo_descontento(i + 1, m, c);
-    return min(corregir, siguiente);
-}
+/// @param i iterador de parciales
+/// @param mins contador de minutos
+/// @param corregidos cantidad de parciales corregidos
+/// @return el minimo desconteto
+int minimo_descontento(int i, int mins, int corregidos) {
+    // Caso base: corrigió todo
+    if (corregidos == n) return 0;
+    
+    // Si paso del ultimo parcial puede que no haya corregido los primeros entocnes vuelve a empezar
+    if (i == n and corregidos > 0) return minimo_descontento(0, mins, corregidos);
 
-bool comp(parcial p1, parcial p2) {
-    return p1.second > p2.second;
+    // Si paso del ultimo parcial y no corrigio ninguno tenemos que cortar el bucle
+    if (i == n and corregidos == 0) return INF;
+
+    // Pasar al siguiente parcial
+    int pasar = minimo_descontento(i + 1, mins, corregidos);
+    int corregir = INF;
+
+    // Si no corrigio el parcial lo corrige
+    if (not parciales_corregidos[i]) {
+        parciales_corregidos[i] = true;
+        corregir = descontentos[i] * (mins + minutos[i]) + minimo_descontento(i + 1, mins + minutos[i], corregidos + 1);
+        parciales_corregidos[i] = false;
+    }
+
+    return min(pasar, corregir);
 }
 
 int main() {
-    int c; cin >> c;
+    int c = 1; //cin >> c;
     while(c--) {
-        cin >> n;
-        int i = 0;
+        //cin >> n;
+        n = 3;
+        int i = n;
 
-        minutos      = vector<minuto>(n);
-        descontentos = vector<costo>(n);
-        parciales    = vector<parcial>(n);
+        minutos              = vector<minuto>(n);
+        descontentos         = vector<costo>(n);
+        parciales_corregidos = vector<bool>(n, false);
 
         while(i < n) {
             int e; cin >> e;
@@ -42,23 +58,22 @@ int main() {
             i++;
         }
 
-        i = 0;
+        i = n;
         while(i < n) {
             int e; cin >> e;
             descontentos[i] = e;
             i++;
         }
 
-        i = 0;
-        while(i < n) {
-            //cout << minutos[i] << "-" << descontentos[i] << endl;
-            parciales[i] = make_pair(minutos[i], descontentos[i]);
-            i++;
-        }
+        minutos[0] = 1;
+        minutos[1] = 2;
+        minutos[2] = 3;
 
-        sort(parciales.begin(), parciales.end(), comp);
+        descontentos[0] = 2;
+        descontentos[1] = 2;
+        descontentos[2] = 2;
 
-        int descontento = minimo_descontento(0,0,0);
+        int descontento = minimo_descontento(0, 0, 0);
 
         cout << descontento << endl;
     }
