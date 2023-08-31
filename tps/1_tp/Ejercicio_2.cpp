@@ -3,88 +3,67 @@
 #include<algorithm>
 
 using namespace std;
-using minuto = int;
-using costo = int;
 
-const int INF = 1e9;
+const long long m = 1000000007LL;
+
+struct parcial {
+    long long mins;
+    long long descontento;
+    double coeficiente;
+};
 
 int n;
-vector<minuto> minutos;
-vector<costo> descontentos;
-vector<bool> parciales_corregidos;
+vector<parcial> parciales;
 
-/// @param i iterador de parciales
-/// @param mins contador de minutos
-/// @param corregidos cantidad de parciales corregidos
+long long mod(long long x) {
+    long long modulo = x % m;
+    return modulo < 0 ? modulo + m : modulo;
+}
+
+bool comp(parcial p1, parcial p2) {
+    return p1.coeficiente > p2.coeficiente;
+}
+
 /// @return el minimo desconteto
-int minimo_descontento(int i, int mins, int corregidos) {
-    // Caso base: corrigió todo
-    if (corregidos == n) return 0;
-    
-    // Si paso del ultimo parcial puede que no haya corregido los primeros entocnes vuelve a empezar
-    if (i == n and corregidos > 0) return minimo_descontento(0, mins, corregidos);
+int minimo_descontento() {
+    sort(parciales.begin(), parciales.end(), comp);
 
-    // Si paso del ultimo parcial y no corrigio ninguno tenemos que cortar el bucle
-    if (i == n and corregidos == 0) return INF;
+    long long descontento = 0;
+    int minutos = 0;
 
-    // Pasar al siguiente parcial
-    int pasar = minimo_descontento(i + 1, mins, corregidos);
-    int corregir = INF;
-
-    // Si no corrigio el parcial lo corrige
-    if (not parciales_corregidos[i]) {
-        parciales_corregidos[i] = true;
-        corregir = descontentos[i] * (mins + minutos[i]) + minimo_descontento(i + 1, mins + minutos[i], corregidos + 1);
-        parciales_corregidos[i] = false;
+    for(int i = 0; i < n; i++) {
+        minutos += parciales[i].mins;
+        long long nuevo_descontento = mod(mod(parciales[i].descontento) * minutos);
+        descontento = mod(descontento + nuevo_descontento);
     }
 
-    return min(pasar, corregir);
+    return descontento;
 }
 
 int main() {
-    int c = 1; //cin >> c;
+    int c ;cin >> c;
     while(c--) {
-        //cin >> n;
-        n = 3;
-        int i = n;
+        cin >> n;
+        int i = 0;
 
-        minutos              = vector<minuto>(n);
-        descontentos         = vector<costo>(n);
-        parciales_corregidos = vector<bool>(n, false);
+        parciales = vector<parcial>(n);
 
         while(i < n) {
-            int e; cin >> e;
-            minutos[i] = e;
+            long long e; cin >> e;
+            parciales[i].mins = e;
             i++;
         }
 
-        i = n;
+        i = 0;
         while(i < n) {
-            int e; cin >> e;
-            descontentos[i] = e;
+            long long e; cin >> e;
+            parciales[i].descontento = e;
+            parciales[i].coeficiente = e / double(parciales[i].mins);
             i++;
         }
 
-        minutos[0] = 1;
-        minutos[1] = 2;
-        minutos[2] = 3;
-
-        descontentos[0] = 2;
-        descontentos[1] = 2;
-        descontentos[2] = 2;
-
-        int descontento = minimo_descontento(0, 0, 0);
+        int descontento = minimo_descontento();
 
         cout << descontento << endl;
     }
 }
-
-/*
-2
-3
-1 2 3
-2 2 2
-4
-2 1 3 2
-1 2 2 3
-*/
