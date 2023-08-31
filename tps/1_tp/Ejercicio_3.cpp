@@ -37,22 +37,6 @@ bool detectar_cuentas(int i, int s, vector<char>& signos) {
     return memo[i][s];
 }
 
-void detectar_dobles() {
-    for(int i = 0; i < n; i++) {
-        int contador = 0;
-        for(int j = 0; j < n; j++){
-            if (i != j and cuentas[i] == cuentas[j]) {
-                contador++;
-                if (contador == 1) {
-                    contador = 0;
-                    resultado[i] = INDETERMINADO;
-                    resultado[j] = INDETERMINADO;
-                }
-            }
-        }
-    }       
-}
-
 int main() {
     int c; cin >> c;
     while(c--) {
@@ -68,12 +52,6 @@ int main() {
             cuentas[i] = e;
             i++;
         }
-
-        vector<char> v(n);
-
-        detectar_cuentas(0, 0, v);
-
-        detectar_dobles();
 
         for(int i = 0; i < n; i++) cout << resultado[i];
         cout << endl;
