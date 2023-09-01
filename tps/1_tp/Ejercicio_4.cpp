@@ -27,12 +27,14 @@ int min_costo(int i, int k) {
     if (i <= n and k == 0)  return costo();
     if (i == n and k > 0)   return INF;
     
-    proveedurias[k-1] = i;
+    proveedurias[k-1] = puestos[i];
     int poner =   min_costo(i + 1, k - 1);
 
     proveedurias[k-1] = INF;
     int saltear = min_costo(i + 1, k);
 
+    if (poner < saltear) proveedurias[k-1] = puestos[i];
+    
     return min(poner, saltear);
 }
 
@@ -54,7 +56,7 @@ int main() {
         int costo = min_costo(0,cant_prov);
         
         cout << costo << endl;
-        for(int j = 0; j < cant_prov; j++) cout << proveedurias[j] << " ";
+        for(int j = cant_prov - 1; j >= 0; j--) cout << proveedurias[j] << " ";
         cout << endl;
     }
 }
