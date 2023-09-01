@@ -13,28 +13,27 @@ const char INDETERMINADO = '?';
 int n, saldo_final;
 vector<int> cuentas;
 vector<char> resultado;
-vector<vector<int> > memo;
+vector<vector<vector<vector<int> > > > memo;
 
-bool detectar_cuentas(int i, int s, vector<char>& signos) {
+/// @param i iterador de las cuentas
+/// @param s suma que va llevando para comparar contra el saldo final
+/// @param j indice fijo que indica la cuenta que se quiere fijar la suma o la resta
+/// @param b true en caso de querer fijar la suma de j o false para fijar la resta
+/// @return Si es posible hacer una combinación de sumas y restas para llegar al saldo final
+bool detectar_cuentas(int i, int s, int j, bool b) {
     // Caso base
-    if (i == n ) {
-        if (s == saldo_final) resultado = signos;
-        return s == saldo_final;
+    if (i == n) return s == saldo_final;
+
+    if (memo[i][s][j][b] == -1) {
+        // Forzamos a j para que sume
+        if (i == j and b) memo[i][s][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b);
+        // Forzamos a j para que reste
+        else if (i == j and not b) memo[i][s][j][b] = detectar_cuentas(i + 1, s - cuentas[i], j, b);
+        // Caso contrario
+        else memo[i][s][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b) or detectar_cuentas(i + 1, s - cuentas[i], j, b);
     }
 
-    if (memo[i][s] == -1) {
-        signos[i] = POSITIVO;
-        bool sumando = detectar_cuentas(i + 1, s + cuentas[i], signos);
-
-        signos[i] = NEGATIVO;
-        bool restando = detectar_cuentas(i + 1, s - cuentas[i], signos);
-    
-        signos[i] = ' ';
-
-        memo[i][s] = sumando or restando;
-    }
-
-    return memo[i][s];
+    return memo[i][s][j][b];
 }
 
 int main() {
@@ -42,15 +41,36 @@ int main() {
     while(c--) {
         cin >> n >> saldo_final;
 
-        memo = vector<vector<int> >(n, vector<int>(saldo_final, -1));
+        // Como todos los xi son multiplos de 100, dividimos todo por 100 para tener numeros más chicos
+        saldo_final /= 100;
+
         cuentas = vector<int>(n);
         resultado = vector<char>(n);
+
+        // O(2 w n^2 )
+        memo = vector<vector<vector<vector<int> > > >(n+1, 
+               vector<vector<vector<int> > >(saldo_final, 
+               vector<vector<int> >(n+1,
+               vector<int>(2, -1))));
 
         int i = 0;
         while(i < n) {
             int e; cin >> e;
-            cuentas[i] = e;
+            cuentas[i] = e / 100;
             i++;
+        }
+
+        // Probamos todas las posibilidades
+        for(int i = 0; i < n; i++) {
+            bool sumando = detectar_cuentas(0,0,i,true);
+            bool restando = detectar_cuentas(0,0,i,false);
+
+            if (sumando and restando) 
+                resultado[i] = INDETERMINADO;
+            else if (sumando) 
+                resultado[i] = POSITIVO;
+            else 
+                resultado[i] = NEGATIVO;
         }
 
         for(int i = 0; i < n; i++) cout << resultado[i];
