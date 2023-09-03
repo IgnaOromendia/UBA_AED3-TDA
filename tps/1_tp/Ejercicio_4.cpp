@@ -41,13 +41,13 @@ int min_costo(int i, int k, int u) {
     if (i <= n and k == 0)  return costos_restantes(u);
     if (i == n and k > 0)   return INF;
 
-    if (memo[i][k-1][u] == -1) {
+    if (memo[i][k-1][u+1] == -1) {
         int poner = calcular_costos(u, i) + min_costo(i + 1, k - 1, i);
         int saltear = min_costo(i + 1, k, u);
-        memo[i][k-1][u] = min(poner, saltear);
+        memo[i][k-1][u+1] = min(poner, saltear);
     }
 
-    return memo[i][k-1][u];
+    return memo[i][k-1][u+1];
 }
 
 void reconstruir_solucion() {
@@ -55,27 +55,20 @@ void reconstruir_solucion() {
 }
 
 int main() {
-    int c = 1;//cin >> c;
+    int c;cin >> c;
     while(c--) {
-        // cin >> n >> cant_prov;
-        cant_prov = 2;
-        n = 4;
+        cin >> n >> cant_prov;
 
         puestos      = vector<int>(n);
         proveedurias = vector<int>(cant_prov);
-        memo = vector<vector<vector<int> > >(n, vector<vector<int> >(cant_prov, vector<int>(n, -1)));
+        memo = vector<vector<vector<int> > >(n, vector<vector<int> >(cant_prov, vector<int>(n+1, -1)));
         
-        int i = n;
+        int i = 0;
         while(i < n) {
             int e; cin >> e;
             puestos[i] = e;
             i++;
         }
-
-        puestos[0] = 1;
-        puestos[1] = 5;
-        puestos[2] = 15;
-        puestos[3] = 20;
 
         int costo = min_costo(0,cant_prov, -1);
         
@@ -84,13 +77,3 @@ int main() {
         cout << endl;
     }
 }
-
-/*
-3
-4 2
-1 5 15 20
-5 1
-4 5 6 7 8
-4 1
-4 5 6 7
-*/
