@@ -38,20 +38,38 @@ int calcular_costos(int d, int h) {
 /// @param u la posicion de la última proveeduria
 /// @return el minimo costo de poner las k proveeduras
 int min_costo(int i, int k, int u) {
-    if (i <= n and k == 0)  return costos_restantes(u);
-    if (i == n and k > 0)   return INF;
+    if (i <= n and k == cant_prov)  return costos_restantes(u);
+    if (i == n and k < cant_prov)   return INF;
 
-    if (memo[i][k-1][u+1] == -1) {
-        int poner = calcular_costos(u, i) + min_costo(i + 1, k - 1, i);
+    int param_u = u;
+
+    if (u == -1) param_u = i;
+
+    if (memo[i][k][param_u] == -1) {
+        int poner = calcular_costos(u, i) + min_costo(i + 1, k + 1, i);
         int saltear = min_costo(i + 1, k, u);
-        memo[i][k-1][u+1] = min(poner, saltear);
+        memo[i][k][param_u] = min(poner, saltear);
     }
 
-    return memo[i][k-1][u+1];
+    return memo[i][k][param_u];
 }
 
-void reconstruir_solucion(int i, int k, int u) {
-    // TODO
+void reconstruir_solucion(int i, int k, int u, int costo) {
+    if (i == n and k < cant_prov) return;
+    if (i <= n and k == cant_prov)
+        if (costo - costos_restantes(i) == 0) return;
+
+    int param_u = u;
+
+    if (u == -1) param_u = i;
+
+    if(memo[i][k][param_u] == costo) {
+        proveedurias[k] = i;
+        int costo_i = calcular_costos(u,i);
+        reconstruir_solucion(i + 1, k + 1, i, costo - costo_i);
+    } else {
+        reconstruir_solucion(i + 1, k, u, costo);
+    }
 }
 
 int main() {
@@ -61,7 +79,7 @@ int main() {
 
         puestos      = vector<int>(n);
         proveedurias = vector<int>(cant_prov);
-        memo = vector<vector<vector<int> > >(n, vector<vector<int> >(cant_prov, vector<int>(n+1, -1)));
+        memo = vector<vector<vector<int> > >(n, vector<vector<int> >(cant_prov, vector<int>(n, -1)));
         
         int i = 0;
         while(i < n) {
@@ -70,18 +88,17 @@ int main() {
             i++;
         }
 
-        int costo = min_costo(0,cant_prov, -1);
+        int costo = min_costo(0,0, -1);
 
-        for(int k = 0; k < n; k++) {
-            cout << "i" << endl; 
+        for(int k = n; k < n; k++) {
             for(int j = 0; j < cant_prov; j++) {
-                for(int q = 0; q <= n; q++) {
-                    cout << memo[k][j][q] << " ";
+                for(int q = 0; q < n; q++) {
+                    cout << "memo[" << k << "][" << j << "][" << q << "] = " << memo[k][j][q] << endl;
                 }
-                cout << endl;
             }
-            cout << endl;
         }
+
+        reconstruir_solucion(0,0,-1,costo);
         
         cout << costo << endl;
         for(int j = cant_prov - 1; j >= 0; j--) cout << proveedurias[j] << " ";
