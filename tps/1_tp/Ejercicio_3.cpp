@@ -10,7 +10,7 @@ const char NEGATIVO = '-';
 const char INDETERMINADO = '?'; 
 
 // Variables Globales
-int n, saldo_final;
+int n, saldo_final, offset;
 vector<int> cuentas;
 vector<char> resultado;
 vector<vector<vector<vector<int> > > > memo;
@@ -18,14 +18,13 @@ vector<vector<vector<vector<int> > > > memo;
 /// @param s el saldo actual
 /// @return el saldo multiplicado x2 y positivo
 int parametrizar(int s) {
-    if (s < 0) s *= -1;
-    return s * 2;
+    return s < 0 ? -s : s + offset;
 }
 
-/// @param i iterador de las cuentas
+/// @param i numero al cual vamos a sumar o restar
 /// @param s suma que va llevando para comparar contra el saldo final
 /// @param j indice fijo que indica la cuenta que se quiere fijar la suma o la resta
-/// @param b true en caso de querer fijar la suma de j o false para fijar la resta
+/// @param b true si se quiere fijar la suma de j o false para fijar la resta
 /// @return Si es posible hacer una combinación de sumas y restas para llegar al saldo final
 bool detectar_cuentas(int i, int s, int j, bool b) {
     // Caso base
@@ -56,21 +55,25 @@ int main() {
         cuentas = vector<int>(n);
         resultado = vector<char>(n);
 
-        int param_s = saldo_final * 2;
-        if (param_s < 0) param_s *= -1;
+        int param_s = 0;
+
+        int i = 0;
+        while(i < n) {
+            int e; cin >> e;
+            e /= 100;
+            cuentas[i] = e;
+            param_s += e;
+            i++;
+        }
+
+        offset = param_s;
+        param_s *= 2;
 
         // O(2 w n^2 )
         memo = vector<vector<vector<vector<int> > > >(n+1, 
                vector<vector<vector<int> > >(param_s, 
                vector<vector<int> >(n+1,
                vector<int>(2, -1))));
-
-        int i = 0;
-        while(i < n) {
-            int e; cin >> e;
-            cuentas[i] = e / 100;
-            i++;
-        }
 
         // Probamos todas las posibilidades
         for(int i = 0; i < n; i++) {
@@ -81,8 +84,10 @@ int main() {
                 resultado[i] = INDETERMINADO;
             else if (sumando) 
                 resultado[i] = POSITIVO;
-            else 
+            else if (restando)
                 resultado[i] = NEGATIVO;
+            else 
+                resultado[i] = 'e';
         }
 
         for(int i = 0; i < n; i++) cout << resultado[i];
