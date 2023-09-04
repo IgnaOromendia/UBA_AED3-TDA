@@ -15,6 +15,13 @@ vector<int> cuentas;
 vector<char> resultado;
 vector<vector<vector<vector<int> > > > memo;
 
+/// @param s el saldo actual
+/// @return el saldo multiplicado x2 y positivo
+int parametrizar(int s) {
+    if (s < 0) s *= -1;
+    return s * 2;
+}
+
 /// @param i iterador de las cuentas
 /// @param s suma que va llevando para comparar contra el saldo final
 /// @param j indice fijo que indica la cuenta que se quiere fijar la suma o la resta
@@ -24,16 +31,18 @@ bool detectar_cuentas(int i, int s, int j, bool b) {
     // Caso base
     if (i == n) return s == saldo_final;
 
-    if (memo[i][s][j][b] == -1) {
+    int saldo = parametrizar(s);
+
+    if (memo[i][saldo][j][b] == -1) {
         // Forzamos a j para que sume
-        if (i == j and b) memo[i][s][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b);
+        if (i == j and b) memo[i][saldo][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b);
         // Forzamos a j para que reste
-        else if (i == j and not b) memo[i][s][j][b] = detectar_cuentas(i + 1, s - cuentas[i], j, b);
+        else if (i == j and not b) memo[i][saldo][j][b] = detectar_cuentas(i + 1, s - cuentas[i], j, b);
         // Caso contrario
-        else memo[i][s][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b) or detectar_cuentas(i + 1, s - cuentas[i], j, b);
+        else memo[i][saldo][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b) or detectar_cuentas(i + 1, s - cuentas[i], j, b);
     }
 
-    return memo[i][s][j][b];
+    return memo[i][saldo][j][b];
 }
 
 int main() {
@@ -47,9 +56,12 @@ int main() {
         cuentas = vector<int>(n);
         resultado = vector<char>(n);
 
+        int param_s = saldo_final * 2;
+        if (param_s < 0) param_s *= -1;
+
         // O(2 w n^2 )
         memo = vector<vector<vector<vector<int> > > >(n+1, 
-               vector<vector<vector<int> > >(saldo_final, 
+               vector<vector<vector<int> > >(param_s, 
                vector<vector<int> >(n+1,
                vector<int>(2, -1))));
 
@@ -78,11 +90,3 @@ int main() {
 
     }
 }
-
-/*
-2
-2 -200
-500 700
-4 400
-500 700 700 100
-*/

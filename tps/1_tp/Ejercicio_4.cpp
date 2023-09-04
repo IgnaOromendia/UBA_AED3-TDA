@@ -50,7 +50,7 @@ int min_costo(int i, int k, int u) {
     return memo[i][k-1][u+1];
 }
 
-void reconstruir_solucion() {
+void reconstruir_solucion(int i, int k, int u) {
     // TODO
 }
 
@@ -71,6 +71,17 @@ int main() {
         }
 
         int costo = min_costo(0,cant_prov, -1);
+
+        for(int k = 0; k < n; k++) {
+            cout << "i" << endl; 
+            for(int j = 0; j < cant_prov; j++) {
+                for(int q = 0; q <= n; q++) {
+                    cout << memo[k][j][q] << " ";
+                }
+                cout << endl;
+            }
+            cout << endl;
+        }
         
         cout << costo << endl;
         for(int j = cant_prov - 1; j >= 0; j--) cout << proveedurias[j] << " ";
