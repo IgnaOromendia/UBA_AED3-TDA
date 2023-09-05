@@ -41,9 +41,7 @@ int min_costo(int i, int k, int u) {
     if (i <= n and k == cant_prov)  return costos_restantes(u);
     if (i == n and k < cant_prov)   return INF;
 
-    int param_u = u;
-
-    if (u == -1) param_u = i;
+    int param_u = u == -1 ? i : u;
 
     if (memo[i][k][param_u] == -1) {
         int poner = calcular_costos(u, i) + min_costo(i + 1, k + 1, i);
@@ -54,22 +52,25 @@ int min_costo(int i, int k, int u) {
     return memo[i][k][param_u];
 }
 
-void reconstruir_solucion(int i, int k, int u, int costo) {
-    if (i == n and k < cant_prov) return;
-    if (i <= n and k == cant_prov)
-        if (costo - costos_restantes(i) == 0) return;
+void reconstruir_solucion(int i, int k, int u) {
+    if (i == n) return;
 
-    int param_u = u;
+    int param_u = u == -1 ? i : u;
 
-    if (u == -1) param_u = i;
-
-    if(memo[i][k][param_u] == costo) {
-        proveedurias[k] = i;
-        int costo_i = calcular_costos(u,i);
-        reconstruir_solucion(i + 1, k + 1, i, costo - costo_i);
-    } else {
-        reconstruir_solucion(i + 1, k, u, costo);
-    }
+    if (memo[i][k][param_u] != -1) {
+        if (k < cant_prov - 1) {
+            int poner = calcular_costos(u, i);
+            // Si la solucion que tengo es igual a mi solucion parcial + el costo de esta instancia es porque es solcuion
+            if (memo[i][k][param_u] == (memo[i+1][k+1][i]) + poner) {
+                proveedurias[k] = i;
+                reconstruir_solucion(i + 1, k + 1, i);
+            } else {
+                reconstruir_solucion(i + 1, k, u);
+            }
+        } else if (k == cant_prov - 1) {
+            if (memo[i][k][param_u] == costos_restantes(u)) proveedurias[k] = u;
+        }
+    } 
 }
 
 int main() {
@@ -90,7 +91,7 @@ int main() {
 
         int costo = min_costo(0,0, -1);
 
-        for(int k = n; k < n; k++) {
+        for(int k = 0; k < n; k++) {
             for(int j = 0; j < cant_prov; j++) {
                 for(int q = 0; q < n; q++) {
                     cout << "memo[" << k << "][" << j << "][" << q << "] = " << memo[k][j][q] << endl;
@@ -98,10 +99,10 @@ int main() {
             }
         }
 
-        reconstruir_solucion(0,0,-1,costo);
+        reconstruir_solucion(0,0,-1);
         
         cout << costo << endl;
-        for(int j = cant_prov - 1; j >= 0; j--) cout << proveedurias[j] << " ";
+        for(int j = 0; j < proveedurias.size(); j++) cout << proveedurias[j] << " ";
         cout << endl;
     }
 }
