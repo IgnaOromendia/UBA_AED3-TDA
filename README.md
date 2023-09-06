@@ -23,3 +23,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Golosos
         - [Ejercicio 13](practicas/practica%201/Ej_13.cpp)
         - [Ejercicio 14](practicas/practica%201/Ej_14.cpp)
+    
+    - Practica 2:
+        - Demostración de propiedades simples sobre grafos
+        - [Ejercicio 1](practicas/practica%202/Ej_1.md)

@@ -1,0 +1,26 @@
+### Ejercicio 1
+
+Se pide demostrar en un digrafo _D_ que que _∑ d_in(v) = ∑ d_out(v) = |E(D)|_ donde |E(D)| = m y |V(D)| = n
+
+**Caso base**: Cuando `m` = 1 y `n` = 2 y entonces ambas sumatorias son iguales a 1, ya que tendríamos
+un digrafo `u -> v` donde u tiene el único d_out, v tiene el único d_in y `m` = 1. Con lo cuál es válido.
+
+**Hipotesis Inductiva**: G = (V,E) con m' < m cumple la igualdad
+
+Elijo un grafo _G_ con `m` aristas y le sacamos la arista `e` obteniendo _G' = (V,E')_, donde _E' = E \ {e}_ entonces aplico la **HI**
+
+_∑ d_in_G'(v) = ∑ d_out_G'(v) = m - 1_
+
+Pero sambemos que _d_in_G = d_in_G' + 1_ y _d_out_G = d_out_G' + 1_
+
+Por lo tanto, por enunciado sabemos que 
+
+_∑ d_in_G(v) = m_
+
+_∑ d_in_G'(v) + 1 = m_
+
+_m - 1 + 1 = m_ (*aplicamos HI*)
+
+m = m
+
+Con lo cual es verdadera la hipótesis
