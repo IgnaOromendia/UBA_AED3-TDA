@@ -13,12 +13,31 @@ const char INDETERMINADO = '?';
 int n, saldo_final, offset;
 vector<int> cuentas;
 vector<char> resultado;
-vector<vector<vector<vector<int> > > > memo;
+vector<vector<int> > memo;
 
 /// @param s el saldo actual
 /// @return el saldo multiplicado x2 y positivo
 int parametrizar(int s) {
     return s < 0 ? -s : s + offset;
+}
+
+void asignar_signo(int i, bool s, bool r) {
+    if (s and r) 
+        resultado[i] = INDETERMINADO;
+    else if (s) 
+        resultado[i] = POSITIVO;
+    else if (r)
+        resultado[i] = NEGATIVO;
+    else 
+        resultado[i] = 'e';
+}
+
+void resetar_memo(int s) {
+    for(int j = 0; j < n; j++) {
+        for(int k = 0; k < s; k++) {
+            memo[j][k] = -1;
+        }
+    }
 }
 
 /// @param i numero al cual vamos a sumar o restar
@@ -32,16 +51,16 @@ bool detectar_cuentas(int i, int s, int j, bool b) {
 
     int saldo = parametrizar(s);
 
-    if (memo[i][saldo][j][b] == -1) {
+    if (memo[i][saldo] == -1) {
         // Forzamos a j para que sume
-        if (i == j and b) memo[i][saldo][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b);
+        if (i == j and b) memo[i][saldo] = detectar_cuentas(i + 1, s + cuentas[i], j, b);
         // Forzamos a j para que reste
-        else if (i == j and not b) memo[i][saldo][j][b] = detectar_cuentas(i + 1, s - cuentas[i], j, b);
+        else if (i == j and not b) memo[i][saldo] = detectar_cuentas(i + 1, s - cuentas[i], j, b);
         // Caso contrario
-        else memo[i][saldo][j][b] = detectar_cuentas(i + 1, s + cuentas[i], j, b) or detectar_cuentas(i + 1, s - cuentas[i], j, b);
+        else memo[i][saldo] = detectar_cuentas(i + 1, s + cuentas[i], j, b) or detectar_cuentas(i + 1, s - cuentas[i], j, b);
     }
 
-    return memo[i][saldo][j][b];
+    return memo[i][saldo];
 }
 
 int main() {
@@ -69,25 +88,20 @@ int main() {
         offset = param_s;
         param_s *= 2;
 
-        // O(2 w n^2 )
-        memo = vector<vector<vector<vector<int> > > >(n+1, 
-               vector<vector<vector<int> > >(param_s, 
-               vector<vector<int> >(n+1,
-               vector<int>(2, -1))));
+        // O(2wn)
+        memo = vector<vector<int> >(n+1, vector<int>(param_s, -1));
 
         // Probamos todas las posibilidades
         for(int i = 0; i < n; i++) {
+            resetar_memo(param_s);
+
             bool sumando = detectar_cuentas(0,0,i,true);
+
+            resetar_memo(param_s);
+
             bool restando = detectar_cuentas(0,0,i,false);
 
-            if (sumando and restando) 
-                resultado[i] = INDETERMINADO;
-            else if (sumando) 
-                resultado[i] = POSITIVO;
-            else if (restando)
-                resultado[i] = NEGATIVO;
-            else 
-                resultado[i] = 'e';
+            asignar_signo(i, sumando, restando);
         }
 
         for(int i = 0; i < n; i++) cout << resultado[i];
