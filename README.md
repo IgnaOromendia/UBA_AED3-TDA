@@ -26,4 +26,5 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
     
     - Practica 2:
         - Demostración de propiedades simples sobre grafos
-        - [Ejercicio 1](practicas/practica%202/Ej_1.md)
+        - [Ejercicio 1](practicas/practica%202/Ej_01.md)
+        - [Ejercicio 2](practicas/practica%202/Ej_02.md)
