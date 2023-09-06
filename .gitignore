@@ -3,4 +3,5 @@ Ej_*
 Ejercicio*
 .vscode
 !*.cpp
+!*.md
 temp*
