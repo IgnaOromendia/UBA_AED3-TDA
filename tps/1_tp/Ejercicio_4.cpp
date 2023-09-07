@@ -78,14 +78,13 @@ int min_costo(int i, int k, int u) {
 }
 
 void reconstruir_solucion(int i, int k, int u) {
-    //cout << i << " " << k << " " << u << endl;
-
+    if (i == n or k == cant_prov or u == n) return;
     if (proveedurias[k] != -1) return;
     if (padres[i][k][u].sig_i == -1) return;
 
     datos padre = padres[i][k][u];
 
-    if (padre.sig_u != u) proveedurias[k] = puestos[padre.sig_u];
+    if (i > 0 and padre.sig_u != u) proveedurias[k] = puestos[padre.sig_u];
 
     reconstruir_solucion(padre.sig_i, padre.sig_k, padre.sig_u);
 }
@@ -117,25 +116,6 @@ int main() {
         }
 
         int costo = min_costo(0,0, 0);
-        
-        // Print padres
-        for(int k = n; k < n; k++) {
-            for(int j = 0; j < cant_prov; j++) {
-                for(int q = 0; q < n; q++) {
-                    cout << "padres[" << k << "][" << j << "][" << q << "] = " << padres[k][j][q].sig_i << ", " << padres[k][j][q].sig_k << ", " << padres[k][j][q].sig_u << endl;
-                }
-            }
-        }
-
-        // Print memo
-        for(int k = n; k < n; k++) {
-            for(int j = 0; j < cant_prov; j++) {
-                for(int q = 0; q < n; q++) {
-                    cout << "memo[" << k << "][" << j << "][" << q << "] = " << memo[k][j][q] << endl;
-                }
-            }
-        }
-
         reconstruir_solucion(0,0,0);
         
         cout << costo << endl;
