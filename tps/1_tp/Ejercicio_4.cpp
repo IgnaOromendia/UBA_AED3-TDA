@@ -4,12 +4,13 @@
 using namespace std;
 
 const int INF = 1e9;
+using datos = pair<int,pair<int, int> >;
 
 int n, cant_prov;
 vector<int> puestos;
 vector<int> proveedurias;
 vector<vector<vector<int> > > memo;
-
+vector<vector<vector<datos> > > padres;
 
 /// @param d desde que puesto calcular
 /// @return el costo de los puestos que estan adelante de la proveeduria d
@@ -24,7 +25,7 @@ int costos_restantes(int d) {
 /// @param d Desde este puesto
 /// @param h Hasta este puesto
 /// @return los costos minimos de las distancias de los puestsos entre las proveedurias d y h
-int calcular_costos(int d, int h) {
+int costos_intermedios(int d, int h) {
     int suma = 0;
     for(int i = d + 1; i < h; i++) {
         if (d == -1) suma += abs(puestos[i] - puestos[h]);
@@ -41,57 +42,85 @@ int min_costo(int i, int k, int u) {
     if (i <= n and k == cant_prov)  return costos_restantes(u);
     if (i == n and k < cant_prov)   return INF;
 
-    int param_u = u == -1 ? i : u;
+    if (memo[i][k][u] == -1) {
+        // Pongo la proveeduria en i y calculo los costos entre i y la ultima proveeduria
+        if (i == 0) k = -1;
+        int poner = costos_intermedios(u, i) + min_costo(i + 1, k + 1, i);
+        if (i == 0) k = 0;
 
-    if (memo[i][k][param_u] == -1) {
-        int poner = calcular_costos(u, i) + min_costo(i + 1, k + 1, i);
-        int saltear = min_costo(i + 1, k, u);
-        memo[i][k][param_u] = min(poner, saltear);
+        // Salteo la posicion i
+        int saltear = i > 0 ? min_costo(i + 1, k, u) : INF;
+
+        // Me quedo con el minimo de poner y saltear
+        if(poner <= saltear) {
+            memo[i][k][u] = poner;
+            if (i == 0) {
+                padres[i][k][u] = make_pair(i + 1, make_pair(k, i));
+            } else {
+                padres[i][k][u] = make_pair(i + 1, make_pair(k + 1, i));
+            }
+            
+        } else {
+            memo[i][k][u] = saltear;
+            padres[i][k][u] = make_pair(i + 1, make_pair(k, u));
+        }
     }
 
-    return memo[i][k][param_u];
+    return memo[i][k][u];
 }
 
 void reconstruir_solucion(int i, int k, int u) {
-    if (i == n) return;
+    cout << i << " " << k << " " << u << endl;
 
-    int param_u = u == -1 ? i : u;
+    if (proveedurias[k] != -1) return;
+    if (padres[i][k][u].first == -1) return;
 
-    if (memo[i][k][param_u] != -1) {
-        if (k < cant_prov - 1) {
-            int poner = calcular_costos(u, i);
-            // Si la solucion que tengo es igual a mi solucion parcial + el costo de esta instancia es porque es solcuion
-            if (memo[i][k][param_u] == (memo[i+1][k+1][i]) + poner) {
-                proveedurias[k] = i;
-                reconstruir_solucion(i + 1, k + 1, i);
-            } else {
-                reconstruir_solucion(i + 1, k, u);
-            }
-        } else if (k == cant_prov - 1) {
-            if (memo[i][k][param_u] == costos_restantes(u)) proveedurias[k] = u;
-        }
-    } 
+    int new_i = padres[i][k][u].first;
+    int new_k = padres[i][k][u].second.first;
+    int new_u = padres[i][k][u].second.second;
+
+    if (k == 0) proveedurias[k] = puestos[new_i];
+    else if (proveedurias[k - 1] != new_u) proveedurias[k] = puestos[new_i];
+    reconstruir_solucion(new_i, new_k, new_u);
 }
 
 int main() {
     int c;cin >> c;
     while(c--) {
         cin >> n >> cant_prov;
+        n++;
 
         puestos      = vector<int>(n);
-        proveedurias = vector<int>(cant_prov);
-        memo = vector<vector<vector<int> > >(n, vector<vector<int> >(cant_prov, vector<int>(n, -1)));
+        proveedurias = vector<int>(cant_prov, -1);
+
+        memo   = vector<vector<vector<int> > >(n, 
+                 vector<vector<int> >(cant_prov, 
+                 vector<int>(n, -1)));
+
+        padres = vector<vector<vector<datos> > >(n, 
+                 vector<vector<datos> >(cant_prov, 
+                 vector<datos>(n, make_pair(-1, make_pair(-1, -1)))));
         
-        int i = 0;
+        puestos[0] = -INF;
+
+        int i = 1;
         while(i < n) {
             int e; cin >> e;
             puestos[i] = e;
             i++;
         }
 
-        int costo = min_costo(0,0, -1);
-
+        int costo = min_costo(0,0, 0);
+        
         for(int k = 0; k < n; k++) {
+            for(int j = 0; j < cant_prov; j++) {
+                for(int q = 0; q < n; q++) {
+                    cout << "padres[" << k << "][" << j << "][" << q << "] = " << padres[k][j][q].first << ", " << padres[k][j][q].second.first << ", " << padres[k][j][q].second.second << endl;
+                }
+            }
+        }
+
+        for(int k = n; k < n; k++) {
             for(int j = 0; j < cant_prov; j++) {
                 for(int q = 0; q < n; q++) {
                     cout << "memo[" << k << "][" << j << "][" << q << "] = " << memo[k][j][q] << endl;
@@ -99,10 +128,10 @@ int main() {
             }
         }
 
-        reconstruir_solucion(0,0,-1);
+        reconstruir_solucion(0,0,0);
         
         cout << costo << endl;
-        for(int j = 0; j < proveedurias.size(); j++) cout << proveedurias[j] << " ";
+        for(int j = 0; j < cant_prov; j++) cout << proveedurias[j] << " ";
         cout << endl;
     }
 }
