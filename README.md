@@ -33,3 +33,4 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 5](practicas/practica%202/Ej_05.md)
         - [Ejercicio 6](practicas/practica%202/Ej_06.md)
         - [Ejercicio 7](practicas/practica%202/Ej_07.md)
+        - [Ejercicio 8](practicas/practica%202/Ej_08.md)
