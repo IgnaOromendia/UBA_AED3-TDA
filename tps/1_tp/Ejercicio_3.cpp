@@ -18,9 +18,15 @@ vector<vector<int> > memo;
 /// @param s el saldo actual
 /// @return el saldo multiplicado x2 y positivo
 int parametrizar(int s) {
+    // Los negativo se ubican desde el 0 hatsa la maxima suma
+    // mientras que los postivio se ubican desde 
+    // la suma maxima hasta la suma maxima * 2
     return s < 0 ? -s : s + offset;
 }
 
+/// @param i indice del libro
+/// @param s representa si la suma tuvo exito
+/// @param r representa si la resta tuvo exto
 void asignar_signo(int i, bool s, bool r) {
     if (s and r) 
         resultado[i] = INDETERMINADO;
@@ -32,6 +38,7 @@ void asignar_signo(int i, bool s, bool r) {
         resultado[i] = 'e';
 }
 
+/// reseta la memoria
 void resetar_memo(int s) {
     for(int j = 0; j < n; j++) {
         for(int k = 0; k < s; k++) {
