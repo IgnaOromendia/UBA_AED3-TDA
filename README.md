@@ -37,3 +37,4 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 10](practicas/practica%202/Ej_10.md)
         - Representación de grafos y digrafos
         - [Ejercicio 11](practicas/practica%202/Ej_11.md)
+        - [Ejercicio 13](practicas/practica%202/Ej_13.md)
