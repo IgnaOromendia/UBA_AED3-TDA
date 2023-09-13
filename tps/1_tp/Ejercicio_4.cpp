@@ -49,7 +49,7 @@ int min_costo(int i, int k, int u) {
         int poner;
 
         if (i == 0) {
-            //Fuerzo la proveeduria virtual en el -INF
+            //Fuerzo la proveeduria virtual en el -INF pero sin agregar cantidad de proveedurias
             poner = min_costo(i + 1, k, i);
         } else {
             // Pongo la proveeduria en i y calculo los costos entre i y la ultima proveeduria
@@ -60,6 +60,7 @@ int min_costo(int i, int k, int u) {
         int saltear = i > 0 ? min_costo(i + 1, k, u) : INF;
 
         // Me quedo con el minimo de poner y saltear
+        // En caso de empate el menor lexicograficamente va a ser poner
         if(poner <= saltear) {
             memo[i][k][u] = poner;
             if (i == 0) {
@@ -77,13 +78,17 @@ int min_costo(int i, int k, int u) {
     return memo[i][k][u];
 }
 
+// Vamos a reconstruir la solucion siguiendo los pasos del padre
 void reconstruir_solucion(int i, int k, int u) {
+    // Para no pasarse del tamaño de los arreglos
     if (i == n or k == cant_prov or u == n) return;
-    if (proveedurias[k] != -1) return;
+
+    // Si entramos en un caso invalido, no hay solucion
     if (padres[i][k][u].sig_i == -1) return;
 
     datos padre = padres[i][k][u];
 
+    // Si la siguiente proveeduria es distinta a la actual, la guardamos
     if (i > 0 and padre.sig_u != u) proveedurias[k] = puestos[padre.sig_u];
 
     reconstruir_solucion(padre.sig_i, padre.sig_k, padre.sig_u);
