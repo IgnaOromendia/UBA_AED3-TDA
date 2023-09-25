@@ -50,6 +50,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Recorrido en anchura
         - [Ejercicio 5](practicas/practica%203/Ej_05.md)
         - [Ejercicio 6](practicas/practica%203/Ej_06.md)
+        - [Ejercicio 7](practicas/practica%203/Ej_07.md)
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
         - [Ejercicio 1](tps/1_tp/Ej_01.cpp) (Backtracking)
