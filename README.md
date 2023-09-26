@@ -42,6 +42,8 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 15](practicas/practica%202/Ej_15.md)
         - Integradores
         - [Ejercicio 16](practicas/practica%202/Ej_16.md)
+        - [Ejercicio 17 PASAR](practicas/practica%202/Ej_17.md)
+        - [Ejercicio 18 PASAR](practicas/practica%202/Ej_17.md)
     - Practica 3:
         - Recorrido en profundidad
         - [Ejercicio 1](practicas/practica%203/Ej_01.md)
@@ -56,6 +58,11 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 10](practicas/practica%203/Ej_10.md)
         - [Ejercicio 11](practicas/practica%203/Ej_11.md)
         - [Ejercicio 12](practicas/practica%203/Ej_12.md)
+        - [Ejercicio 13](practicas/practica%203/Ej_13.md)
+        - Integradores
+        - [Ejercicio 15](practicas/practica%203/Ej_15.md)
+        - [Ejercicio 16](practicas/practica%203/Ej_16.md)
+
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
         - [Ejercicio 1](tps/1_tp/Ej_01.cpp) (Backtracking)
