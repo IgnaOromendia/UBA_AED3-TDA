@@ -54,6 +54,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 8](practicas/practica%203/Ej_08.md)
         - [Ejercicio 10](practicas/practica%203/Ej_10.md)
         - [Ejercicio 11](practicas/practica%203/Ej_11.md)
+        - [Ejercicio 12](practicas/practica%203/Ej_12.md)
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
         - [Ejercicio 1](tps/1_tp/Ej_01.cpp) (Backtracking)
