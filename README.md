@@ -52,6 +52,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 6](practicas/practica%203/Ej_06.md)
         - [Ejercicio 7](practicas/practica%203/Ej_07.md)
         - [Ejercicio 8](practicas/practica%203/Ej_08.md)
+        - Árbole generador mínimo, camino minimax y camino maximin
         - [Ejercicio 10](practicas/practica%203/Ej_10.md)
         - [Ejercicio 11](practicas/practica%203/Ej_11.md)
         - [Ejercicio 12](practicas/practica%203/Ej_12.md)
