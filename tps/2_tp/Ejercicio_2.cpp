@@ -83,7 +83,7 @@ int calcular_camino_hasta_P() {
     
     // Caso contrario, limpiamos el grafo de manifestaciones y volvemos a calcular el camino
     for(int i = 0; i < manifestaciones.size(); i++)
-        marcados[manifestaciones[i].nodo] = manifestaciones[i].tiempo < tiempo_H[P];
+        marcados[manifestaciones[i].nodo] = manifestaciones[i].tiempo <= tiempo_H[P];
 
     // Reinicamos los caminos debido a las manifestaciones
     tiempo_H = vector<int>(n*m, -1);
@@ -98,8 +98,9 @@ int calcular_camino_hasta_H() {
     if (tiempo_P[H] + tiempo_H[P] < proxima_manifestacion.tiempo) return tiempo_P[H];
     
     // Caso contrario, limpiamos el grafo de manifestaciones y volvemos a calcular el camino
-    for(int i = 0; i < manifestaciones.size(); i++)
-        marcados[manifestaciones[i].nodo] = manifestaciones[i].tiempo < tiempo_P[H] + tiempo_H[P];
+    for(int i = 0; i < manifestaciones.size(); i++) {
+        marcados[manifestaciones[i].nodo] = manifestaciones[i].tiempo <= (tiempo_P[manifestaciones[i].nodo] + tiempo_H[P]);
+    }
 
     // Reinicamos los caminos debido a las manifestaciones
     tiempo_P = vector<int>(n*m, -1);
@@ -211,14 +212,15 @@ int main() {
         // cout << "Proxima manifestacion para P: " << proxima_manifestacion.nodo << ", " << proxima_manifestacion.tiempo << endl;
 
         camino_H = calcular_camino_hasta_H();
-        
-        // cout << "Marcados post P:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", m:" << marcados[i] << endl;
+        /*
+        cout << "Marcados post P:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", m:" << marcados[i] << endl;
 
-        // cout << "Caminos desde P despues de calcular:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", t:" << tiempo_P[i] << endl;
+        cout << "Caminos desde P despues de calcular:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", t:" << tiempo_P[i] << endl;
+        */
 
         if (camino_P == -1 or camino_H == -1) cout << IMPOSIBLE << endl;
         else cout << camino_P << " " << camino_H + camino_P << endl;
