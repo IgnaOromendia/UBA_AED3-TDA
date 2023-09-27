@@ -82,9 +82,10 @@ int calcular_camino_hasta_P() {
     if (tiempo_H[P] < proxima_manifestacion.tiempo) return tiempo_H[P];
     
     // Caso contrario, limpiamos el grafo de manifestaciones y volvemos a calcular el camino
-    for(int i = 0; i < manifestaciones.size(); i++)
+    for(int i = 0; i < manifestaciones.size(); i++) {
         marcados[manifestaciones[i].nodo] = manifestaciones[i].tiempo <= tiempo_H[P];
-
+    }
+        
     // Reinicamos los caminos debido a las manifestaciones
     tiempo_H = vector<int>(n*m, -1);
 
@@ -112,7 +113,7 @@ int calcular_camino_hasta_H() {
 // Complejidad: O(n)
 manifestacion proxima_manifestacion_para(int t) {
     int i = 0;
-    while(manifestaciones[i].tiempo < t and i < manifestaciones.size()) i++;
+    while(manifestaciones[i].tiempo > t and i < manifestaciones.size()) i++;
     return manifestaciones[i];
 }
 
@@ -156,22 +157,24 @@ int main() {
         int x,y;
         cin >> x >> y; H = x + y;
         cin >> x >> y; P = x + y;
-
+        /*
         // Imprimimos el grafo
-        // cout << "G:" << endl;
-        // for(int v = 0; v < n*m; v++) {
-        //     cout << v << ": ";
-        //     for(int w : adyacentes[v]) cout << w << " ";
-        //     cout << endl;
-        // }
+        cout << "G:" << endl;
+        for(int v = 0; v < n*m; v++) {
+             cout << v << ": ";
+             for(int w : adyacentes[v]) cout << w << " ";
+             cout << endl;
+        }
 
         // Imprimimos las manifestaciones
-        // cout << "Manifestaciones: " << endl;
-        // for(int i = 0; i < manifestaciones.size(); i++)
-        //     cout << "v: " << manifestaciones[i].nodo << ", t: " << manifestaciones[i].tiempo << endl;
+        
+        cout << "Manifestaciones: " << endl;
+        for(int i = 0; i < manifestaciones.size(); i++)
+           cout << "v: " << manifestaciones[i].nodo << ", t: " << manifestaciones[i].tiempo << endl;
+        
+        cout << "H: " << H << endl;
+        cout << "P: " << P << endl;*/
 
-        // cout << "H: " << H << endl;
-        // cout << "P: " << P << endl;
 
         // Ordenamos las manifestaciones por tiempo
         sort(manifestaciones.begin(), manifestaciones.end(), comp_manifestaciones);
@@ -179,34 +182,36 @@ int main() {
         // Calculamos el camino a P
         bfs(H, tiempo_H);
 
+        /*
         // Mostramos los caminos desde H
-        // cout << "Caminos desde H antes de calcular:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", t:" << tiempo_H[i] << endl;
+        cout << "Caminos desde H antes de calcular:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", t:" << tiempo_H[i] << endl;
+        */
 
         proxima_manifestacion = proxima_manifestacion_para(tiempo_H[P]);
 
         // cout << "Proxima manifestacion para H: " << proxima_manifestacion.nodo << ", " << proxima_manifestacion.tiempo << endl;
 
         camino_P = calcular_camino_hasta_P();
-
+        /*
         // Mostramos los marcados
-        // cout << "Marcados post H:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", m:" << marcados[i] << endl;
+        cout << "Marcados post H:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", m:" << marcados[i] << endl;
 
-        // cout << "Caminos desde H post calcular:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", t:" << tiempo_H[i] << endl;
-
+        cout << "Caminos desde H post calcular:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", t:" << tiempo_H[i] << endl;
+        */
         // Calculamos el camino a H
         bfs(P, tiempo_P);
-
+        /*
         // Mostramos los caminos desde P
-        // cout << "Caminos desde P antes de calcular:" << endl;
-        // for(int i = 0; i < n*m; i++)
-        //     cout << "v: " << i << ", t:" << tiempo_P[i] << endl;
-
+        cout << "Caminos desde P antes de calcular:" << endl;
+        for(int i = 0; i < n*m; i++)
+            cout << "v: " << i << ", t:" << tiempo_P[i] << endl;
+        */
         proxima_manifestacion = proxima_manifestacion_para(tiempo_P[H]);
         
         // cout << "Proxima manifestacion para P: " << proxima_manifestacion.nodo << ", " << proxima_manifestacion.tiempo << endl;
