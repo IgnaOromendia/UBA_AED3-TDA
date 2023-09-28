@@ -62,6 +62,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Integradores
         - [Ejercicio 15](practicas/practica%203/Ej_15.md)
         - [Ejercicio 16](practicas/practica%203/Ej_16.md)
+        - [Ejercicio 18](practicas/practica%203/Ej_18.md)
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
