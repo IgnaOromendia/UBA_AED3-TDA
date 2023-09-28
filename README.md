@@ -42,8 +42,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 15](practicas/practica%202/Ej_15.md)
         - Integradores
         - [Ejercicio 16](practicas/practica%202/Ej_16.md)
-        - [Ejercicio 17 PASAR](practicas/practica%202/Ej_17.md)
-        - [Ejercicio 18 PASAR](practicas/practica%202/Ej_17.md)
+        - [Ejercicio 17](practicas/practica%202/Ej_17.md)
     - Practica 3:
         - Recorrido en profundidad
         - [Ejercicio 1](practicas/practica%203/Ej_01.md)
