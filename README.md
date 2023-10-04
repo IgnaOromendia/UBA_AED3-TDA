@@ -65,12 +65,12 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
-        - [Ejercicio 1](tps/1_tp/Ej_01.cpp) (Backtracking)
-        - [Ejercicio 2](tps/1_tp/Ej_02.cpp) (Goloso)
-        - [Ejercicio 3](tps/1_tp/Ej_03.cpp) (Programación Dinámica)
-        - [Ejercicio 4](tps/1_tp/Ej_04.cpp) (Programación Dinámica)
+        - [Ejercicio 1](tps/1_tp/Ejercicio_1.cpp) (Backtracking)
+        - [Ejercicio 2](tps/1_tp/Ejercicio_2.cpp) (Goloso)
+        - [Ejercicio 3](tps/1_tp/Ejercicio_3.cpp) (Programación Dinámica)
+        - [Ejercicio 4](tps/1_tp/Ejercicio_4.cpp) (Programación Dinámica)
     - [TP 2](tps/2_tp/enunciado.pdf):
-        - [Ejercicio 1](tps/2_tp/Ej_01.cpp) (DFS)
-        - [Ejercicio 2](tps/2_tp/Ej_02.cpp) (BFS)
-        - [Ejercicio 3](tps/2_tp/Ej_03.cpp) (AGM)
+        - [Ejercicio 1](tps/2_tp/Ejercicio_1.cpp) (DFS)
+        - [Ejercicio 2](tps/2_tp/Ejercicio_2.cpp) (BFS)
+        - [Ejercicio 3](tps/2_tp/Ejercicio_3.cpp) (AGM)
         
