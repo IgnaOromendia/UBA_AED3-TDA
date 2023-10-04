@@ -36,7 +36,7 @@ Algoritmo
 */
 
 // Constantes
-const string IMPOSIBLE = "IMPOSIBLE";
+#define IMPOSIBLE "IMPOSIBLE"
 
 // Estructura de manifestaciones
 struct manifestacion {
@@ -141,8 +141,6 @@ int main() {
         int x,y;
         cin >> x >> y; H = (x * n) + y;
         cin >> x >> y; P = (x * n) + y;
-
-        // cout << P << endl;
 
         // Ordenamos las manifestaciones por tiempo
         sort(manifestaciones.begin(), manifestaciones.end(), comp_manifestaciones);
