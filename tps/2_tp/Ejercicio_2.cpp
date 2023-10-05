@@ -6,35 +6,6 @@
 
 using namespace std;
 
-/*
--- Estrategia --
-n = 10^6
-m ≈ 4n = 4*10^6
-tij = 10^7
-Complejidad: 
-O(n log n + 2(2(n+m) + n)) = 
-O(n log n + 4n + 4m + 2n) = 
-O(n log n + 6n + 4m) = 
-O(n log n + n + m)
---
-Operaciones: 
-10^6 log 10^6 + 610^6 + 1610^6 =
-28*10^6 < 10^9
---
-Algoritmo
-- Ordenamos por tiempo las manifestaciones                      O(n log n)
-- BFS desde H guardando la distancia a cada nodo                O(n + m)
-- Calcular camino a P:                                          O(n + m)
-    Si min de manifestaciones < camino_P:                       
-        Eliminar todos los nodos tq tiempo_hasta_manifiestacion_i > manifestacion_i
-        BFS desde H guardando la distancia a cada nodo
-- BFS desde P guardando la distancia a cada nodo                O(n + m)  
-- Calcular camino a H:                                          O(n + m)
-    Si min de manifestaciones < camino_H:
-        Eliminar todos los nodos tq tiempo_hasta_manifiestacion_i + tiempo_hasta_p > manifestacion_i
-        BFS desde P guardando la distancia a cada nodo
-*/
-
 // Constantes
 #define IMPOSIBLE "IMPOSIBLE"
 
@@ -98,12 +69,10 @@ int main() {
 
             // Vecino de abajo
             if (v < n*m - m) ady[v].push_back(v + m);
-        }
-
-        // Leemos las manifestaciones
-        for(int i = 0; i < n*m; i++) {
+            
+            // Leemos la manifestación
             int t; cin >> t;
-            manifestaciones[i] = t;
+            manifestaciones[v] = t;
         }
 
         // Leemos cooredenada de H y P
