@@ -6,7 +6,7 @@ using namespace std;
 
 #define PL "Permanently Locked"
 
-int n = 9999, m;
+int n = 10000, m;
 int initial_state, combination, amount_buttons;
 
 vector<int> buttons, dist;
@@ -34,6 +34,7 @@ void bfs(int v) {
 }
 
 int main() {
+    int c = 1;
     while(true) {
         cin >> initial_state >> combination >> amount_buttons;
 
@@ -49,18 +50,25 @@ int main() {
         }
 
         for(int b: buttons) {
-            cout << b << endl;
-            break;
-            for(int v = initial_state; v <= n; v + b) {
-                cout << v << endl;
-                int next_node = v + b > n ? (v + b) % n : v + b;
+            for(int v = 0; v < n; v++) {
+                int next_node = (v + b) % n;
                 adj[v].push_back(next_node);
             }
         }
 
+        for(int i = n+1; i <= n; i++) {
+            cout << i << ": ";
+            for(int j = 0; j < adj[i].size(); j++) {
+                cout << adj[i][j] << " ";
+            }
+            cout << endl;
+        }
+
         bfs(initial_state);
 
-        if (dist[combination] == -1) cout << PL << endl;
-        else cout << dist[combination] << endl;
+        if (dist[combination] < 1) cout << "Case " << c << ": " << PL << endl;
+        else cout << "Case " << c << ": " << dist[combination] << endl;
+
+        c++;
     }
 }
