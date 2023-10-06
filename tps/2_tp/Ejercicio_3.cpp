@@ -7,18 +7,18 @@ using namespace std;
 struct edge {
     int u;
     int v;
-    int d;
-    int r;
+    long long d;
+    long long r;
     double costo;
     bool es_treeEdge = false;
-    edge(int u, int v, int d, int r): u(u), v(v), d(d), r(r) {}
+    edge(int u, int v, long long d, long long r): u(u), v(v), d(d), r(r) {}
     void aplicar_costo(double c) { costo = (d - (c * r)); }
 };
 
 int n, m;
 
 vector<edge> edges;
-int suma_distancias = 0, suma_repetidores = 0;
+long long suma_distancias = 0, suma_repetidores = 0;
 
 struct DSU {
     vector<int> p;
@@ -70,7 +70,7 @@ void kruskal(double c) {
 
 double calcular_costo(double c) {
     double suma = 0;
-    for(edge e: edges) {
+    for(edge &e: edges) {
         if (e.es_treeEdge) suma += e.costo;
     }        
     return suma;
@@ -104,7 +104,8 @@ int main() {
         edges.clear();
 
         while(m--) {
-            int u, v, d, r; 
+            int u, v;
+            long long d, r; 
             cin >> u >> v >> d >> r;
             edges.push_back(edge(u,v,d,r));
         }
