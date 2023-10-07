@@ -62,6 +62,15 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 15](practicas/practica%203/Ej_15.md)
         - [Ejercicio 16](practicas/practica%203/Ej_16.md)
         - [Ejercicio 18](practicas/practica%203/Ej_18.md)
+    - Practica 4:
+        - Algoritmo de Dijkstra
+        - [Ejercicio 1](practicas/practica%204/Ej_01.md)
+        - [Ejercicio 2](practicas/practica%204/Ej_02.md)
+        - [Ejercicio 3](practicas/practica%204/Ej_03.md)
+        - [Ejercicio 4](practicas/practica%204/Ej_04.md)
+        - [Ejercicio 5](practicas/practica%204/Ej_05.md)
+        - [Ejercicio 6](practicas/practica%204/Ej_06.md)
+        - Algoritmo de Bellman-Ford
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
