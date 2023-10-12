@@ -56,7 +56,7 @@ void kruskal(double c) {
 
     sort(edges.begin(), edges.end(), [](edge a, edge b) { return a.costo > b.costo; });
 
-    DSU dsu(n);
+    DSU dsu(n+1);
 
     for(edge &e: edges) {
         if(dsu.find(e.u) != dsu.find(e.v)) {
@@ -107,7 +107,7 @@ int main() {
             int u, v;
             long long d, r; 
             cin >> u >> v >> d >> r;
-            edges.push_back(edge(u-1,v-1,d,r));
+            edges.push_back(edge(u,v,d,r));
         }
         
         buscar_costo_optimo();
