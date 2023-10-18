@@ -69,10 +69,12 @@ int main() {
 
             // Vecino de abajo
             if (v < n*m - m) ady[v].push_back(v + m);
-            
-            // Leemos la manifestación
+        }
+
+        // Leemos las manifestaciones
+        for(int i = 0; i < n*m; i++) {
             int t; cin >> t;
-            manifestaciones[v] = t;
+            manifestaciones[i] = t;
         }
 
         // Leemos cooredenada de H y P
@@ -80,9 +82,11 @@ int main() {
         cin >> x >> y; H = (x * m) + y;
         cin >> x >> y; P = (x * m) + y;
 
+        //Aplicamos BFS desde Hospital con tiempo 0
         bfs(H, 0);
         tiempo_hasta_P = tiempos[P];
 
+        //Aplicamos BFS desde paciente con tiempo tiempo_hasta_P , que fue lo que tardo en llegar hasta el paciente
         bfs(P, tiempo_hasta_P);
         tiempo_hasta_H = tiempos[H];
 
