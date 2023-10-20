@@ -71,6 +71,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 5](practicas/practica%204/Ej_05.md)
         - [Ejercicio 6](practicas/practica%204/Ej_06.md)
         - Algoritmo de Bellman-Ford
+        - [Ejercicio 7](practicas/practica%204/Ej_07.md)
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
@@ -82,4 +83,6 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 1](tps/2_tp/Ejercicio_1.cpp) (DFS)
         - [Ejercicio 2](tps/2_tp/Ejercicio_2.cpp) (BFS)
         - [Ejercicio 3](tps/2_tp/Ejercicio_3.cpp) (AGM)
+    - [TP 3](tps/3_tp/enunciado.pdf)
+        - [Ejercicio 1](tps/3_tp/Ejercicio_1.cpp) (Camino mínimo)
         
