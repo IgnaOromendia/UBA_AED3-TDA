@@ -85,4 +85,5 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 3](tps/2_tp/Ejercicio_3.cpp) (AGM)
     - [TP 3](tps/3_tp/enunciado.pdf)
         - [Ejercicio 1](tps/3_tp/Ejercicio_1.cpp) (Camino mínimo)
+        - [Ejercicio 2](tps/3_tp/Ejercicio_2.cpp) (Camino mínimo)
         
