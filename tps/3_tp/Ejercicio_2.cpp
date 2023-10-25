@@ -15,18 +15,17 @@ bool armar_red() {
     for(int k = 1; k <= n; k++) {
         for(int i = 1; i <= n; i++) {
             for(int j = 1; j <= n; j++) {
-                if ((k == i or k == j) or (i == j)) continue;
+                if (k == i or k == j or i == j) continue;
                 if (velocidad[i][j] < velocidad[i][k] + velocidad[k][j]) {
-                    distancia[i][j] = distancia[j][i] = 1;
-                    cout << "d(" << i << "," << j << "): " << velocidad[i][j] << " < d(" << i << "," << k << "): " << velocidad[i][k] << " + d(" << k << "," << j << "): " << velocidad[k][j] << endl;
+                    if (distancia[i][j] == 0) distancia[i][j] = distancia[j][i] = 1;
+                    //cout << "d(" << i << "," << j << "): " << velocidad[i][j] << " < d(" << i << "," << k << "): " << velocidad[i][k] << " + d(" << k << "," << j << "): " << velocidad[k][j] << endl;
                 } else if (velocidad[i][j] == velocidad[i][k] + velocidad[k][j]) {
-                    cout << "d(" << i << "," << j << "): " << velocidad[i][j] << " = d(" << i << "," << k << "): " << velocidad[i][k] << " + d(" << k << "," << j << "): " << velocidad[k][j] << endl;
+                    //cout << "d(" << i << "," << j << "): " << velocidad[i][j] << " = d(" << i << "," << k << "): " << velocidad[i][k] << " + d(" << k << "," << j << "): " << velocidad[k][j] << endl;
                     distancia[i][j] = distancia[j][i] =  distancia[j][i] + 1;
                 }
                 else return false;
             }
         }
-        cout << "---" << endl;
     }
     return true;
 }
@@ -49,7 +48,7 @@ int main() {
             if (i == j) {i++;j=1;}
         }
 
-        for(int i = 1; i <= n; i++) {
+        for(int i = n+1; i <= n; i++) {
             for(int j = 1; j <= n; j++) {
                 cout << velocidad[i][j] << " ";
             }
@@ -67,8 +66,5 @@ int main() {
                 cout << endl;
             }
         }
-
-        cout << "==============================" << endl;
-
     }
 }
