@@ -89,6 +89,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 2](tps/2_tp/Ejercicio_2.cpp) (BFS)
         - [Ejercicio 3](tps/2_tp/Ejercicio_3.cpp) (AGM)
     - [TP 3](tps/3_tp/enunciado.pdf)
-        - [Ejercicio 1](tps/3_tp/Ejercicio_1.cpp) (Camino mínimo)
-        - [Ejercicio 2](tps/3_tp/Ejercicio_2.cpp) (Camino mínimo)
+        - [Ejercicio 1](tps/3_tp/Ejercicio_1_dijk.cpp) (Camino mínimo enfoque Dijkstra)
+        - [Ejercicio 1](tps/3_tp/Ejercicio_1_dp.cpp) (Camino mínimo enfoque DAG)
+        - [Ejercicio 2](tps/3_tp/Ejercicio_2.cpp) (Camino mínimo Floyd)
         
