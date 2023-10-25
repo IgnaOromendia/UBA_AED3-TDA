@@ -74,6 +74,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 7](practicas/practica%204/Ej_07.md)
         - [Ejercicio 8](practicas/practica%204/Ej_08.md)
         - Algoritmo de Floyd-Warshall
+        - [Ejercicio 13](practicas/practica%204/Ej_13.md)
         - Integradores
 
 - Trabajos Prácticos:
