@@ -70,8 +70,11 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 4](practicas/practica%204/Ej_04.md)
         - [Ejercicio 5](practicas/practica%204/Ej_05.md)
         - [Ejercicio 6](practicas/practica%204/Ej_06.md)
-        - Algoritmo de Bellman-Ford
+        - Algoritmo de Bellman-Ford y SRD
         - [Ejercicio 7](practicas/practica%204/Ej_07.md)
+        - [Ejercicio 8](practicas/practica%204/Ej_08.md)
+        - Algoritmo de Floyd-Warshall
+        - Integradores
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
