@@ -78,6 +78,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 14](practicas/practica%204/Ej_14.md)
         - [Ejercicio 15](practicas/practica%204/Ej_15.md)
         - Camino mínimo en DAGs
+        - [Ejercicio 16](practicas/practica%204/Ej_16.md)
         - Integradores
 
 - Trabajos Prácticos:
