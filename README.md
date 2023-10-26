@@ -76,6 +76,8 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Algoritmo de Floyd-Warshall
         - [Ejercicio 13](practicas/practica%204/Ej_13.md)
         - [Ejercicio 14](practicas/practica%204/Ej_14.md)
+        - [Ejercicio 15](practicas/practica%204/Ej_15.md)
+        - Camino mínimo en DAGs
         - Integradores
 
 - Trabajos Prácticos:
