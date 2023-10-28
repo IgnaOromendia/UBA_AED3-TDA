@@ -101,14 +101,6 @@ int main() {
             add_pasadizo(v,u);
         }
 
-        // for(int i = 0; i < adj.size(); i++) {
-        //     cout << i << ": ";
-        //     for(int j = 0; j < adj[i].size(); j++) {
-        //         cout << "(" << adj[i][j].to << ", " << adj[i][j].cost << ") ";
-        //     }
-        //     cout << endl;
-        // }
-
         // Hacemos dijkstra desde el comienzo
         dijkstra(0);
 
@@ -117,11 +109,6 @@ int main() {
         int un_pasadizo    = distances[betun + offset_G2];
         int dos_pasadizos  = distances[betun + offset_G3];
         int tres_pasadizos = distances[betun + offset_G4];
-
-        // cout << sin_pasadizos << endl;
-        // cout << un_pasadizo << endl;
-        // cout << dos_pasadizos << endl;
-        // cout << tres_pasadizos << endl;
 
         int min_path = min(sin_pasadizos, min(un_pasadizo, min(dos_pasadizos, tres_pasadizos)));
 
