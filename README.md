@@ -82,6 +82,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 17](practicas/practica%204/Ej_17.md)
         - [Ejercicio 18](practicas/practica%204/Ej_18.md)
         - Integradores
+        - [Ejercicio 19](practicas/practica%204/Ej_19.md)
     - Practica 5:
         - Propiedades de flujo en redes
 
