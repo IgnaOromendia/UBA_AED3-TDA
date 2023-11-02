@@ -80,7 +80,10 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - Camino mínimo en DAGs
         - [Ejercicio 16](practicas/practica%204/Ej_16.md)
         - [Ejercicio 17](practicas/practica%204/Ej_17.md)
+        - [Ejercicio 18](practicas/practica%204/Ej_18.md)
         - Integradores
+    - Practica 5:
+        - Propiedades de flujo en redes
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
