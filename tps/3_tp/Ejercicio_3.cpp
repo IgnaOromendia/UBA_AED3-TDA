@@ -4,13 +4,11 @@
 
 using namespace std;
 
-#define INF 1e9
+const double INF = 1e9;
 
-int n, Vred, s = 0, t; 
-vector<bool> marcado;
-vector<int> part_fila, part_columna; // Particiones por fila y por columna
+int n, Vred, s = 0, t, tag_fila = 0, tag_col = 0; 
 vector<vector<bool> > tablero;
-vector<vector<int> > red, capacity;
+vector<vector<int> > red, capacity, part_hori, part_vert;
 
 int bfs(int s, int t, vector<int>& parent) {
     fill(parent.begin(), parent.end(), -1);
@@ -57,42 +55,46 @@ int maxflow(int s, int t) {
 }
 
 void armar_red() {
-    // Los nodos del 1 al n+1 son las filas
-    // Las columnas van del n+1 al 2n+1
-    // Las celdas van del 2n+1 hasta el final
-    int offset_fila    = 1;
-    int offset_celda   = 2*n+1;
-    int offset_columna = n+1;
+    // Los nodos del 1 al tag_fila+1 son las particiones horizontales
+    // Los nodoos que representan las particiones verticales van del tag_fila+1 al tag_col+tag_fila+1
+    // Los nodos que representan las celdas van del tag_col+tag_fila+1 hasta el final
+    int offset_celda = tag_fila + tag_col + 1;
+    int offset_verti = tag_fila + 1;
 
-    for(int i = 0; i < n; i++) {
-        // Agregamos las filas y las conectamos con s
+    // Agregamos las particiones horizionatales y las conectamos con s
+    for(int i = 0; i < tag_fila; i++) {
         red[s].push_back(i+1);
-        capacity[s][i+1] = capacity[i+1][s] = part_fila[i] + 1; // En caso de que tenga particiones se las sumamos
-        
-        // Agregamos las columnas y las conectamos con t
-        int col = i + offset_columna;
+        red[i+1].push_back(s);
+        // cout << " uniendo fila: " << s << " con " << i + 1 << endl;
+        capacity[s][i+1] = 1;
+        capacity[i+1][s] = 0;
+    }
+
+    // Agregamos las columnas y las conectamos con t
+    for(int i = 0; i < tag_col; i++) {
+        int col = i + offset_verti;
         red[col].push_back(t);
-        capacity[col][t] = capacity[t][col] = part_columna[i] + 1;
+        red[t].push_back(col);
+        // cout << " uniendo columna: " << col << " con " << t << endl;
+        capacity[col][t] = 1;
+        capacity[t][col] = 0;
     }
 
     // Agregamos las celdas, las conectamos con su fila y cloumna correspondiente
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            int indice  = (n * i) + j;
-            if (marcado[indice]) continue;
-            int celda   = indice + offset_celda;
-            int fila    = i + offset_fila;
-            int columna = j + offset_columna;
+            int indice = (n * i) + j;
+            if (tablero[i][j]) continue;
+            int celda  = indice + offset_celda;
 
-            // cout << fila << " -> " << celda << " -> " << columna << endl;
+            // Nodos que represenatn la particion horizontal y vertical de la celda
+            int h = part_hori[i][j] + 1;
+            int v = part_vert[i][j] + offset_verti;
 
-            // Conectamos con fila
-            red[fila].push_back(celda);
-            capacity[fila][celda] = capacity[celda][fila] = 1;
-
-            // Conectamos con columna
-            red[celda].push_back(columna);
-            capacity[celda][columna] = capacity[columna][celda] = 1;
+            red[h].push_back(v);
+            red[v].push_back(h);
+            capacity[v][h] = 0;
+            capacity[h][v] = 1;
         }
     }
 }
@@ -100,48 +102,44 @@ void armar_red() {
 int main() {
     int c; cin >> c;
     while(c--) {
-        cin >> n;
+        cin >> n; 
 
-        // n filas + n columnas + n^2 celdas + 2 (s y t)
-        Vred = 2*n + n*n + 2; 
-
-        t = Vred - 1;
-
-        part_fila.assign(n,0);
-        part_columna.assign(n,0);
-        marcado.assign(n*n, false);
-        red.assign(Vred, vector<int>());
+        part_hori.assign(n,vector<int>(n,-1));
+        part_vert.assign(n,vector<int>(n,-1));
         tablero.assign(n, vector<bool>(n, false));
-        capacity.assign(Vred, vector<int>(Vred,0));
 
-        // Marcamos los que son inaccesibles
+        // Leo input y asigno una zona horizionatl a cada celda
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                int indice = (n * i) + j;
-                // cout << indice << endl;
-
                 bool b; cin >> b;
+
                 tablero[i][j] = b;
-                marcado[indice] = b;
 
-                if (b and j > 0 and i < n-1 and tablero[i][j-1] == 0) part_fila[i]++;
-                if (b and i > 0 and j < n-1 and tablero[i-1][j] == 0) part_columna[j]++;
+                if (b and j > 0 and tablero[i][j-1] == 0) tag_fila++;
+
+                // Asigno una zona horizontal a la celda
+                part_hori[i][j] = tag_fila;                
             }
+            tag_fila++;
         }
 
-        cout << "Fila" << endl;
+        // Asigno una zona vertical a cada celda
         for(int i = 0; i < n; i++) {
-            cout << i << ": " << part_fila[i] << endl;
+            for(int j = 0; j < n; j++) {
+                if (tablero[j][i] and j > 0 and tablero[j-1][i] == 0) tag_col++;
+                part_vert[j][i] = tag_col;                
+            }
+            tag_col++;
         }
 
-        cout << "Columna" << endl;
-        for(int i = 0; i < n; i++) {
-            cout << i << ": " << part_columna[i] << endl;
-        }
+        Vred = tag_fila + tag_col + 2;
+        capacity.assign(Vred, vector<int>(Vred,0));
+        red.assign(Vred, vector<int>());
+        t = Vred - 1;
 
         armar_red();
-
-        for(int i = 0; i < red.size(); i++) {
+        
+        for(int i = 0; i < 0; i++) {
             cout << i << ": ";
             for(int u: red[i]) {
                 cout << u << " c(" << capacity[i][u] << "), ";
@@ -149,11 +147,13 @@ int main() {
             cout << endl;
         }
 
-        cout << "-----" << endl;
+        //cout << "-----" << endl;
 
         int max_torres = maxflow(s,t);
         cout << max_torres << endl;
-
-        cout << "-----" << endl;
+        
+        //cout << "-----" << endl;
+        tag_col = 0;
+        tag_fila = 0;
     }
 }
