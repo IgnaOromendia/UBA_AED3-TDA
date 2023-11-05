@@ -65,7 +65,6 @@ void armar_red() {
     for(int i = 0; i < tag_fila; i++) {
         red[s].push_back(i+1);
         red[i+1].push_back(s);
-        // cout << " uniendo fila: " << s << " con " << i + 1 << endl;
         capacity[s][i+1] = 1;
         capacity[i+1][s] = 0;
     }
@@ -75,7 +74,6 @@ void armar_red() {
         int col = i + offset_verti;
         red[col].push_back(t);
         red[t].push_back(col);
-        // cout << " uniendo columna: " << col << " con " << t << endl;
         capacity[col][t] = 1;
         capacity[t][col] = 0;
     }
@@ -139,20 +137,9 @@ int main() {
 
         armar_red();
         
-        for(int i = 0; i < 0; i++) {
-            cout << i << ": ";
-            for(int u: red[i]) {
-                cout << u << " c(" << capacity[i][u] << "), ";
-            }
-            cout << endl;
-        }
-
-        //cout << "-----" << endl;
-
         int max_torres = maxflow(s,t);
         cout << max_torres << endl;
         
-        //cout << "-----" << endl;
         tag_col = 0;
         tag_fila = 0;
     }
