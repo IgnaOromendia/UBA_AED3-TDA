@@ -112,7 +112,7 @@ int herramientas(long long salida_taller) {
     ajustar_capacidades(upper);
     long long upper_flow = maxflow(s,t);
 
-    if (upper_flow == x) return upper * x;
+    if (upper_flow >= x) return upper * x;
 
     ajustar_capacidades(lower);
     long long lower_flow = maxflow(s,t);
