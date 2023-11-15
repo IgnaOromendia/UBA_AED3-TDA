@@ -4,20 +4,20 @@
 
 using namespace std;
 
-const double INF = 1e9;
+const int INF = 1e9;
 
-int s = 1, t, x, n;
+int taller = 1, casa_rosada, x, n;
 vector<vector<int> > red, capacity, capacity_og;
 
-// void print_red() {
-//     for(int i = 1; i < n; i++) {
-//         cout << i << ": ";
-//         for(int v: red[i]) {
-//             cout << "(" << v << ", " << capacity[i][v] << ") ";
-//         }
-//         cout << endl;
-//     }
-// }
+void print_red() {
+    for(int i = 1; i < n; i++) {
+        cout << i << ": ";
+        for(int v: red[i]) {
+            cout << "(" << v << ", " << capacity[i][v] << ") ";
+        }
+        cout << endl;
+    }
+}
 
 int bfs(int s, int t, vector<int>& parent) {
     fill(parent.begin(), parent.end(), -1);
@@ -64,21 +64,19 @@ int maxflow(int s, int t) {
 }
 
 void ajustar_capacidades(int c) {
+    if (c == 0) return;
     for(int v = 1; v < n; v++) {
         for(int u: red[v]) {
             if (capacity_og[v][u] == 0) continue;
-
-            if (c == 0) capacity[v][u] = 0;
-            else capacity[v][u] = capacity_og[v][u] / c;
-
+            capacity[v][u] = capacity_og[v][u] / c;
             capacity[u][v] = 0;
         }
     }
 }
 
-int herramientas(long long salida_taller) {
-    long long lower = 0;
-    long long upper = salida_taller / x;
+long long herramientas(long long salida_taller) {
+    int lower = 0;
+    int upper = salida_taller / x;
     
     // c representa la cantidad de herramientas por persona
     // x representa la cantidad de personas
@@ -87,14 +85,9 @@ int herramientas(long long salida_taller) {
 
         ajustar_capacidades(c);
 
-        // print_red();
+        print_red();
 
-        long long new_flow  = maxflow(s,t);
-
-        // cout << "c: " << c << endl;
-        // cout << "l: " << lower << endl;
-        // cout << "u: " << upper << endl;
-        // cout << "f: " << new_flow << endl;
+        long long new_flow = c == 0 ? 0 : maxflow(taller,casa_rosada);
         
         if (new_flow >= x) {
             lower = c;
@@ -104,7 +97,8 @@ int herramientas(long long salida_taller) {
     }
     
     ajustar_capacidades(upper);
-    long long upper_flow = maxflow(s,t);
+    print_red();
+    long long upper_flow = upper == 0 ? 0 : maxflow(taller,casa_rosada);
 
     if (upper_flow >= x) return upper * x;
 
@@ -118,7 +112,7 @@ int main() {
         int m;
         cin >> n >> m >> x;
 
-        t = n; 
+        casa_rosada = n; 
         n++;
 
         red.assign(n, vector<int>());
