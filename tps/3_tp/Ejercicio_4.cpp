@@ -6,18 +6,18 @@ using namespace std;
 
 const double INF = 1e9;
 
-int s = 0, t, x, Vred;
+int s = 1, t, x, n;
 vector<vector<int> > red, capacity, capacity_og;
 
-void print_red() {
-    for(int i = 0; i < Vred; i++) {
-        cout << i << ": ";
-        for(int v: red[i]) {
-            cout << "(" << v << ", " << capacity[i][v] << ") ";
-        }
-        cout << endl;
-    }
-}
+// void print_red() {
+//     for(int i = 1; i < n; i++) {
+//         cout << i << ": ";
+//         for(int v: red[i]) {
+//             cout << "(" << v << ", " << capacity[i][v] << ") ";
+//         }
+//         cout << endl;
+//     }
+// }
 
 int bfs(int s, int t, vector<int>& parent) {
     fill(parent.begin(), parent.end(), -1);
@@ -46,7 +46,7 @@ int bfs(int s, int t, vector<int>& parent) {
 
 int maxflow(int s, int t) {
     int flow = 0;
-    vector<int> parent(Vred);
+    vector<int> parent(n);
     int new_flow;
 
     while (new_flow = bfs(s, t, parent)) {
@@ -64,14 +64,9 @@ int maxflow(int s, int t) {
 }
 
 void ajustar_capacidades(int c) {
-    capacity[s][1] = INF;
-    capacity[1][s] = 0;
-    capacity[t-1][t] = INF;
-    capacity[t][t-1] = 0;
-
-    for(int v = 1; v < Vred; v++) {
+    for(int v = 1; v < n; v++) {
         for(int u: red[v]) {
-            if (capacity_og[v][u] == 0 or capacity_og[v][u] == INF) continue;
+            if (capacity_og[v][u] == 0) continue;
 
             if (c == 0) capacity[v][u] = 0;
             else capacity[v][u] = capacity_og[v][u] / c;
@@ -106,16 +101,12 @@ int herramientas(long long salida_taller) {
         } else {
             upper = c;
         }
-
     }
     
     ajustar_capacidades(upper);
     long long upper_flow = maxflow(s,t);
 
     if (upper_flow >= x) return upper * x;
-
-    ajustar_capacidades(lower);
-    long long lower_flow = maxflow(s,t);
 
     return lower * x;
 }
@@ -124,25 +115,15 @@ int herramientas(long long salida_taller) {
 int main() {
     int c; cin >> c;
     while (c--) {
-        int n, m;
+        int m;
         cin >> n >> m >> x;
 
-        Vred = n + 2;
-        t = Vred - 1; 
+        t = n; 
+        n++;
 
-        red.assign(Vred, vector<int>());
-        capacity_og.assign(Vred, vector<int>(Vred,0));
-        capacity.assign(Vred, vector<int>(Vred,0));
-
-        // Conectamos s con el taller
-        red[s].push_back(1);
-        red[1].push_back(s);
-        capacity_og[s][1] = INF;
-
-        // Conectamos t con la casa rosada
-        red[n].push_back(t);
-        red[t].push_back(n);
-        capacity_og[n][t] = INF;
+        red.assign(n, vector<int>());
+        capacity_og.assign(n, vector<int>(n,0));
+        capacity.assign(n, vector<int>(n,0));
 
         long long max_salida_taller = 0;
 
