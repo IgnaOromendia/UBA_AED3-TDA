@@ -4,20 +4,10 @@
 
 using namespace std;
 
-const int INF = 1e9;
+const int INF = 1e10;
 
 int s = 0, t, x, n;
 vector<vector<int> > red, capacity, capacity_og;
-
-void print_red() {
-    for(int i = 1; i < n; i++) {
-        cout << i << ": ";
-        for(int v: red[i]) {
-            cout << "(" << v << ", " << capacity[i][v] << ") ";
-        }
-        cout << endl;
-    }
-}
 
 int bfs(int s, int t, vector<int>& parent) {
     fill(parent.begin(), parent.end(), -1);
@@ -66,27 +56,28 @@ int maxflow(int s, int t) {
 void ajustar_capacidades(int c) {
     if (c == 0) return;
     capacity[s][1] = x;
+    capacity[1][s] = 0;
     for(int v = 1; v < n; v++) {
         for(int u: red[v]) {
             if (capacity_og[v][u] == 0) continue;
             capacity[v][u] = capacity_og[v][u] / c;
-            capacity[u][v] = 0;
+            capacity[u][v] = capacity_og[u][v] / c;
         }
     }
 }
 
-long long herramientas(long long salida_taller) {
+int herramientas(int salida_taller) {
     int lower = 0;
-    int upper = salida_taller;
+    int upper = salida_taller / x;
 
     // c representa la cantidad de herramientas por persona
     // x representa la cantidad de personas
     while(upper - lower > 1) {
-        long long c = (lower + upper) / 2;
+        int c = (lower + upper) / 2;
 
         ajustar_capacidades(c);
 
-        long long new_flow = c == 0 ? 0 : maxflow(s,t);
+        int new_flow = c == 0 ? 0 : maxflow(s,t);
         
         if (new_flow >= x) {
             lower = c;
@@ -97,7 +88,7 @@ long long herramientas(long long salida_taller) {
 
     if (upper == 0) return 0;
     ajustar_capacidades(upper);
-    long long upper_flow = maxflow(s,t);
+    int upper_flow = maxflow(s,t);
 
     if (upper_flow >= x) return upper * x;
 
@@ -118,7 +109,7 @@ int main() {
         capacity_og.assign(n, vector<int>(n,0));
         capacity.assign(n, vector<int>(n,0));
 
-        long long max_salida_taller = 0;
+        int max_salida_taller = 0;
 
         red[s].push_back(1);
         red[1].push_back(s);
@@ -129,7 +120,7 @@ int main() {
             red[v].push_back(w);
             red[w].push_back(v);
             capacity_og[v][w] = h;
-            max_salida_taller += h;
+            if (v == 1) max_salida_taller += h;
         }
 
         cout << herramientas(max_salida_taller) << endl;
