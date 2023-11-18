@@ -6,7 +6,7 @@ using namespace std;
 
 const int INF = 1e9;
 
-int taller = 1, casa_rosada, x, n;
+int s = 0, t, x, n;
 vector<vector<int> > red, capacity, capacity_og;
 
 void print_red() {
@@ -65,6 +65,7 @@ int maxflow(int s, int t) {
 
 void ajustar_capacidades(int c) {
     if (c == 0) return;
+    capacity[s][1] = x;
     for(int v = 1; v < n; v++) {
         for(int u: red[v]) {
             if (capacity_og[v][u] == 0) continue;
@@ -76,8 +77,8 @@ void ajustar_capacidades(int c) {
 
 long long herramientas(long long salida_taller) {
     int lower = 0;
-    int upper = salida_taller / x;
-    
+    int upper = salida_taller;
+
     // c representa la cantidad de herramientas por persona
     // x representa la cantidad de personas
     while(upper - lower > 1) {
@@ -85,9 +86,7 @@ long long herramientas(long long salida_taller) {
 
         ajustar_capacidades(c);
 
-        print_red();
-
-        long long new_flow = c == 0 ? 0 : maxflow(taller,casa_rosada);
+        long long new_flow = c == 0 ? 0 : maxflow(s,t);
         
         if (new_flow >= x) {
             lower = c;
@@ -95,10 +94,10 @@ long long herramientas(long long salida_taller) {
             upper = c;
         }
     }
-    
+
+    if (upper == 0) return 0;
     ajustar_capacidades(upper);
-    print_red();
-    long long upper_flow = upper == 0 ? 0 : maxflow(taller,casa_rosada);
+    long long upper_flow = maxflow(s,t);
 
     if (upper_flow >= x) return upper * x;
 
@@ -112,7 +111,7 @@ int main() {
         int m;
         cin >> n >> m >> x;
 
-        casa_rosada = n; 
+        t = n; 
         n++;
 
         red.assign(n, vector<int>());
@@ -121,12 +120,16 @@ int main() {
 
         long long max_salida_taller = 0;
 
+        red[s].push_back(1);
+        red[1].push_back(s);
+        capacity_og[s][1] = x;
+
         while(m--) {
             int v,w,h; cin >> v >> w >> h;
             red[v].push_back(w);
             red[w].push_back(v);
             capacity_og[v][w] = h;
-            if (v == 1) max_salida_taller += h;
+            max_salida_taller += h;
         }
 
         cout << herramientas(max_salida_taller) << endl;
