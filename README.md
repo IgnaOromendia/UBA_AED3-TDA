@@ -5,7 +5,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 
 ## Índice
 - Practicas:
-    - Practica 1:
+    - [Practica 1](practicas/practica%201/) - Técnicas Algorítmicas
         - Backtracking
         - [Ejercicio 1](practicas/practica%201/Ej_01.cpp)
         - [Ejercicio 2](practicas/practica%201/Ej_02.cpp)
@@ -85,6 +85,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
         - [Ejercicio 19](practicas/practica%204/Ej_19.md)
     - Practica 5:
         - Propiedades de flujo en redes
+        - [Ejercicio 1](practicas/practica%205/Ej_01.md)
 
 - Trabajos Prácticos:
     - [TP 1](tps/1_tp/enunciado.pdf):
