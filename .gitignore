@@ -1,7 +1,6 @@
 .DS_Store
 ejec
 Ej_*
-Ejercicio*
 .vscode
 !*.cpp
 !*.md
