@@ -1,5 +1,7 @@
 ## Practica 4
 
+[Enunciado](Ejercicios/Enunciado_4.pdf)
+
 - Algoritmo de Dijkstra
 - [Ejercicio 1](Ejercicios/Ej_01.md)
 - [Ejercicio 2](Ejercicios/Ej_02.md)

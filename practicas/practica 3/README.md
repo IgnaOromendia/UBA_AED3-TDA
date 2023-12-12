@@ -1,5 +1,7 @@
 ## Practica 3
 
+[Enunciado](Ejercicios/Enunciado_3.pdf)
+
 - Recorrido en profundidad
 - [Ejercicio 1](Ejercicios/Ej_01.md)
 - [Ejercicio 2](Ejercicios/Ej_02.md)

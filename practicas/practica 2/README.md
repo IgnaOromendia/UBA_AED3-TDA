@@ -1,5 +1,7 @@
 ## Pracitca 2
 
+[Enunciado](Ejercicios/Enunciado_2.pdf)
+
 - Demostración de propiedades simples sobre grafos
 - [Ejercicio 1](Ejercicios/Ej_01.md)
 - [Ejercicio 2](Ejercicios/Ej_02.md)

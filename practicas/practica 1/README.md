@@ -1,5 +1,7 @@
 ## Pracitca 1
 
+[Enunciado](Ejercicios/Enunciado_1.pdf)
+
 - Backtracking
 - [Ejercicio 1](Ejercicios/Ej_01.cpp)
 - [Ejercicio 2](Ejercicios/Ej_02.cpp)
