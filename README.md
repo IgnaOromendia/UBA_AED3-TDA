@@ -3,6 +3,8 @@
 Lic. en Ciencias de la Computación - FCEN - UBA\
 2do cuatrimestre 2023
 
+!! Estos ejercicios los hice mientras era estudiante, por lo tanto puede haber errores, si los encontras avisame !!
+
 ## Índice
 - Practicas:
     - [Practica 1](practicas/practica%201/) - Técnicas Algorítmicas
