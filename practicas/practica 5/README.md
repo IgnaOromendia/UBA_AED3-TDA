@@ -10,3 +10,5 @@
 - Caminos disjuntos en un grafo
 - [Ejercicio 5](Ejercicios/Ej_05.md)
 - [Ejercicio 6](Ejercicios/Ej_06.md)
+- Asignación
+- [Ejercicio 7](Ejercicios/Ej_07.md)
