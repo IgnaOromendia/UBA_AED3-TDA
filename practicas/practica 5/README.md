@@ -6,4 +6,6 @@
 - [Ejercicio 1](Ejercicios/Ej_01.md)
 - [Ejercicio 2](Ejercicios/Ej_02.md)
 - [Ejercicio 3](Ejercicios/Ej_03.md)
-- [Ejercicio 4](Ejercicios/Ej_03.md) 
+- [Ejercicio 4](Ejercicios/Ej_04.md) 
+- Caminos disjuntos en un grafo
+- [Ejercicio 5](Ejercicios/Ej_05.md)
