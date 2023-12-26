@@ -9,3 +9,4 @@
 - [Ejercicio 4](Ejercicios/Ej_04.md) 
 - Caminos disjuntos en un grafo
 - [Ejercicio 5](Ejercicios/Ej_05.md)
+- [Ejercicio 6](Ejercicios/Ej_06.md)
