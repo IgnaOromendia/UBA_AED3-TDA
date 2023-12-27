@@ -12,3 +12,4 @@
 - [Ejercicio 6](Ejercicios/Ej_06.md)
 - Asignación
 - [Ejercicio 7](Ejercicios/Ej_07.md)
+- [Ejercicio 8](Ejercicios/Ej_08.md)
