@@ -14,3 +14,7 @@
 - [Ejercicio 7](Ejercicios/Ej_07.md)
 - [Ejercicio 8](Ejercicios/Ej_08.md)
 - [Ejercicio 9](Ejercicios/Ej_09.md)
+- [Ejercicio 10](Ejercicios/Ej_10.md) (Terminar)
+- Transporte de objetos
+- [Ejercicio 11](Ejercicios/Ej_11.md)
+- [Ejercicio 12](Ejercicios/Ej_12.md) (Hacer)
