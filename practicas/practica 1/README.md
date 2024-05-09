@@ -17,5 +17,5 @@
 - [Ejercicio 11](Ejercicios/Ejercicio%2011/ej11.md)
 - [Ejercicio 12](Ejercicios/Ejercicio%2012/ej12.md)
 - Golosos
-- [Ejercicio 13](Ejercicios/Ejercicio%2013/ej13.md)
-- [Ejercicio 14](Ejercicios/Ejercicio%2014/ej14.md)
+- [Ejercicio 13](./Codigo/Ej_13.cpp)
+- [Ejercicio 14](./Codigo/Ej_14.cpp)
