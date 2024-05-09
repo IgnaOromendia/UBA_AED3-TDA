@@ -6,8 +6,8 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 !! Estos ejercicios los hice mientras era **estudiante**, por lo tanto puede haber errores, si los encontras avisame !!
 
 ### Proximas actualizaciónes:
-- Agrega Funciones Recursivas a la Practica 1
-- Corrige ejercicios Practica 2
+- Agrega demos greedy
+- Corregir ejercicios Practica 2
 
 ## Índice
 - Practicas:
