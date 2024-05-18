@@ -11,7 +11,7 @@
 - [Ejercicio 6](Ejercicios/Ej_06.md)
 - [Ejercicio 7](Ejercicios/Ej_07.md)
 - [Ejercicio 8](Ejercicios/Ej_08.md)
-- Árbole generador mínimo, camino minimax y camino maximin
+- Árbol generador mínimo, camino minimax y camino maximin
 - [Ejercicio 10](Ejercicios/Ej_10.md)
 - [Ejercicio 11](Ejercicios/Ej_11.md)
 - [Ejercicio 12](Ejercicios/Ej_12.md)
