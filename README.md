@@ -7,7 +7,6 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 
 ### Proximas actualizaciónes:
 - Agrega demos greedy
-- Corregir ejercicios Practica 4, 5, 6
 - Agrega practica divide & conquer
 
 ## Índice
