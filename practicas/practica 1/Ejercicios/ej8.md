@@ -5,7 +5,7 @@
 $$
 corte(i,j) = \begin{cases}
 0 &si\quad j = i \\
-min((\forall q: i \leq q \leq j)(j-i + corte(i,q) + corte(q,j))) &cc
+\min_{q=i\dots j}(j-i + corte(i,q) + corte(q,j)) &cc
 \end{cases}
 $$
 
