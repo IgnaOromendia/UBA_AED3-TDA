@@ -1,9 +1,9 @@
 ### Ejercicio 3
 
-[Codigo en C++](../../Codigo/Ej_03.cpp)
+[Codigo en C++](../../Codigo/Ej_03.cpp) (diferente a la recursión)
 
 $$
-maxSum(i,k,I) = \begin{cases}
+\text{maxSum}(i,k,I) = \begin{cases}
 I &si\quad k = 0 \\
 \max(\text{maxsum}(i+1,k-1, I \cup i), \text{maxsum}(i+1,k, I)) &si\quad i < n \\
 \end{cases}
