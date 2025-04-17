@@ -5,10 +5,6 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 
 !! Estos ejercicios los hice mientras era **estudiante**, por lo tanto puede haber errores, si los encontras avisame !!
 
-### Proximas actualizaciónes:
-- Agrega demos greedy
-- Agrega practica divide & conquer
-
 ## Índice
 - Practicas:
     - [Practica 1](practicas/practica%201/) - Técnicas Algorítmicas
