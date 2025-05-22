@@ -9,9 +9,10 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
 - Practicas:
     - [Practica 1](practicas/practica%201/) - Técnicas Algorítmicas
     - [Practica 2](practicas/practica%202/) - Introducción a la teoría algorítmica de grafos
-    - [Practica 3](practicas/practica%203/) - Recorridos y Árboles
-    - [Practica 4](practicas/practica%204/) - Camino mínimo
-    - [Practica 5](practicas/practica%205/) - Flujo en redes
+    - [Recorridos y Árboles](practicas/practica%203/)
+    - [Camino mínimo](practicas/practica%204/) 
+    - [Flujo en redes](practicas/practica%205/) 
+    - [Divide & Conquer](practicas/dyc/)
     
 
 - Final:
