@@ -12,7 +12,7 @@ Lic. en Ciencias de la Computación - FCEN - UBA\
     - [Practica 3](practicas/practica%203/) - Recorridos y Árboles
     - [Practica 4](practicas/practica%204/) - Camino mínimo
     - [Practica 5](practicas/practica%205/) - Flujo en redes
-    - [Practica 6](practicas/practica%206/) - Complejidad de Problemas
+    
 
 - Final:
     - [Apunte](final/)
