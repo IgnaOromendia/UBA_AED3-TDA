@@ -6,3 +6,4 @@
 - [Ejercicio 5](./ejercicios/e05.md)
 - [Ejercicio 6](./ejercicios/e06.md)
 - [Ejercicio 7](./ejercicios/e07.md)
+- [Ejercicio 8](./ejercicios/e08.md)
